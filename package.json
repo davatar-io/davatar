@@ -9,7 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@self.id/framework": "^0.3.2",
     "daisyui": "^2.17.0",
+    "key-did-provider-ed25519": "^2.0.0",
     "next": "12.1.6",
     "react": "18.2.0",
     "react-dom": "18.2.0"

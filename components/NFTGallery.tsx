@@ -39,6 +39,7 @@ const NFTGallery = ({ address, onSelect }: Props) => {
   }, [address]);
 
   const renderNFT = (nft: NFTData, index: number) => {
+    
     return (
       <div
         key={index}
@@ -50,8 +51,8 @@ const NFTGallery = ({ address, onSelect }: Props) => {
           setSelectedKey(index);
         }}
       >
-        <div className="flex flex-col h-48">
-          <div className="flex w-full h-full relative">
+        <div className="flex flex-col h-64">
+          <div className="flex justify-center align-center w-64 h-64 rounded-lg bg-gray-800 relative">
             {nft.cached_file_url && (
               <Image
                 src={nft.cached_file_url}
@@ -74,7 +75,7 @@ const NFTGallery = ({ address, onSelect }: Props) => {
 
   return (
     <div className="">
-      <div className="flex flex-wrap w-full">
+      <div className="flex flex-wrap w-full justify-center">
         {nfts &&
           nfts.map((nft, i) => {
             // console.log("nft", nft);

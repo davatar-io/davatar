@@ -10,7 +10,7 @@ const AccountPage: NextPage = () => {
 
   const CoverImage = () => {
     return (
-      <div className="flex w-full px-6 pt-6 z-0">
+      <div className="flex w-full px-8 z-0">
         <div className="h-80 w-full rounded-2xl bg-gradient-to-r from-green-300 via-blue-500 to-purple-600"></div>
       </div>
     );

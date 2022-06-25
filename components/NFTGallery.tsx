@@ -43,8 +43,8 @@ const NFTGallery = ({ address, onSelect }: Props) => {
     return (
       <div
         key={index}
-        className={`m-6 ${onSelect ? "cursor-pointer" : ""} ${
-          selectedKey === index ? "border-solid border-2 border-indigo-600" : ""
+        className={`m-3 border-4 rounded-xl overflow-hidden ${onSelect ? "cursor-pointer" : ""} ${
+          selectedKey === index ? "border-indigo-600" : "border-white"
         }`}
         onClick={() => {
           onSelect && onSelect(nft);
@@ -52,7 +52,9 @@ const NFTGallery = ({ address, onSelect }: Props) => {
         }}
       >
         <div className="flex flex-col h-64">
-          <div className="flex justify-center align-center w-64 h-64 rounded-lg bg-gray-800 relative">
+          <div className={`flex justify-center align-center w-64 h-64 rounded-lg bg-gray-800 relative ${
+          selectedKey === index ? "opacity-50" : ""
+        }`}>
             {nft.cached_file_url && (
               <Image
                 src={nft.cached_file_url}
@@ -62,7 +64,7 @@ const NFTGallery = ({ address, onSelect }: Props) => {
               />
             )}
           </div>
-          {nft.metadata?.name || "Unnamed"}
+          {/* {nft.metadata?.name || "Unnamed"} */}
         </div>
       </div>
     );
@@ -75,7 +77,7 @@ const NFTGallery = ({ address, onSelect }: Props) => {
 
   return (
     <div className="">
-      <div className="flex flex-wrap w-full justify-center">
+      <div className="flex flex-wrap w-full justify-center pb-24">
         {nfts &&
           nfts.map((nft, i) => {
             // console.log("nft", nft);

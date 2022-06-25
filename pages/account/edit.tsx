@@ -17,10 +17,10 @@ const AccountEditPage: NextPage = () => {
 
   const renderImageTypeButtonGroup = () => {
     return (
-      <div className="flex w-full">
-        <div className="flex mx-auto bg-gray-200 rounded-lg overflow-hidden">
+      <div className="flex w-full mb-8">
+        <div className="flex mx-auto bg-gray-200 rounded-xl overflow-hidden">
           <div
-            className={`bg-gray-200 p-4 cursor-pointer ${imageType === 'nft' && 'bg-gray-900 text-white'}`}
+            className={`bg-gray-200 px-6 py-3 cursor-pointer ${imageType === 'nft' && 'bg-gray-900 text-white font-semibold'}`}
             onClick={() => {
               setImageType('nft');
             }}
@@ -28,7 +28,7 @@ const AccountEditPage: NextPage = () => {
             NFTs
           </div>
           <div
-            className={`bg-gray-200 p-4 cursor-pointer ${imageType === 'upload' && 'bg-gray-900 text-white'}`}
+            className={`bg-gray-200 px-6 py-3 cursor-pointer ${imageType === 'upload' && 'bg-gray-900 text-white font-semibold'}`}
             onClick={() => {
               setImageType('upload');
             }}
@@ -68,7 +68,7 @@ const AccountEditPage: NextPage = () => {
   const renderButtonDone = () => {
     return (
       <button
-        className={`btn ${imageType === "nft" && "btn-active"}`}
+        className={`px-6 py-3 bg-gray-900 font-semibold text-white rounded-xl hover:bg-gray-800 active:scale-105 transition-all ease-in-out ${imageType === "nft" && "scale-110"}`}
         onClick={() => {
           console.log("Submit this image", image);
           // how to pass data via router?
@@ -84,11 +84,15 @@ const AccountEditPage: NextPage = () => {
   };
 
   return (
-    <div className="w-full max-w-3xl mx-auto">
-      <p>edit stuff</p>
-      {renderImageTypeButtonGroup()}
-      {renderImageSelect()}
-      {renderButtonDone()}
+    <div className="flex">
+      <div className="w-full max-w-4xl mx-auto">
+        <p>edit stuff</p>
+        {renderImageTypeButtonGroup()}
+        {renderImageSelect()}
+      </div>
+      <div className="flex fixed bottom-0 w-full gray-200 border-t border-gray-100 bg-white px-8 py-4 justify-end">
+        {renderButtonDone()}
+      </div>
     </div>
   );
 };

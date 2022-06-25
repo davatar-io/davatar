@@ -6,7 +6,7 @@ const AccountPage: NextPage = () => {
   return (
     <div>
       <button
-        className="button button-primary"
+        className="btn btn-primary"
         onClick={() => {
           router.push('/account/edit');
         }}

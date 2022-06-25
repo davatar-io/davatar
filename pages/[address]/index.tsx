@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import axios from "axios";
-// import Image from "next/image";
+import Image from "next/image";
 
 const AddressPage: NextPage = () => {
   const router = useRouter();
@@ -33,23 +33,33 @@ const AddressPage: NextPage = () => {
 
   return (
     <div>
-      <h1>{address}</h1>
+      <div className="flex">
+        Header
+      </div>
+      <div className="flex">
+        <h1>{address}</h1>  
+      </div>
+      <div className="flex">
+        Bio
+      </div>
       <div className="flex">
         {nfts &&
           nfts.map((nft, i) => {
             console.log("nft", nft);
 
-            // return (
-            //   <div key={i}>
-            //     nft
-            //     <Image
-            //       src={nft.cached_file_url}
-            //       alt="nft"
-            //       width="500"
-            //       height="500"
-            //     />
-            //   </div>
-            // );
+            return (
+              <div className="flex-col" key={i}>
+                {nft.metadata.name}
+                <Image
+                  src={nft.cached_file_url}
+                  alt="nft"
+                  width={500}
+                  height={500}
+                  layout='fixed'
+                  className="flex flex-shrink-0"
+                />
+              </div>
+            );
           })}
       </div>
     </div>

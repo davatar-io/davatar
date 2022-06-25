@@ -17,23 +17,25 @@ const AccountEditPage: NextPage = () => {
 
   const renderImageTypeButtonGroup = () => {
     return (
-      <div className="btn-group">
-        <button
-          className={`btn ${imageType === "nft" && "btn-active"}`}
-          onClick={() => {
-            setImageType("nft");
-          }}
-        >
-          NFTs
-        </button>
-        <button
-          className={`btn ${imageType === "upload" && "btn-active"}`}
-          onClick={() => {
-            setImageType("upload");
-          }}
-        >
-          Upload
-        </button>
+      <div className="flex w-full">
+        <div className="flex mx-auto bg-gray-200 rounded-lg overflow-hidden">
+          <div
+            className={`bg-gray-200 p-4 cursor-pointer ${imageType === 'nft' && 'bg-gray-900 text-white'}`}
+            onClick={() => {
+              setImageType('nft');
+            }}
+          >
+            NFTs
+          </div>
+          <div
+            className={`bg-gray-200 p-4 cursor-pointer ${imageType === 'upload' && 'bg-gray-900 text-white'}`}
+            onClick={() => {
+              setImageType('upload');
+            }}
+          >
+            Upload
+          </div>
+        </div>
       </div>
     );
   };
@@ -82,7 +84,7 @@ const AccountEditPage: NextPage = () => {
   };
 
   return (
-    <div>
+    <div className="w-full max-w-3xl mx-auto">
       <p>edit stuff</p>
       {renderImageTypeButtonGroup()}
       {renderImageSelect()}

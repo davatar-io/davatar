@@ -10,7 +10,7 @@ const AccountPage: NextPage = () => {
 
   const CoverImage = () => {
     return (
-      <div className="flex px-6 pt-6 z-0">
+      <div className="flex w-full px-6 pt-6 z-0">
         <div className="h-80 w-full rounded-2xl bg-gradient-to-r from-green-300 via-blue-500 to-purple-600"></div>
       </div>
     );
@@ -18,11 +18,9 @@ const AccountPage: NextPage = () => {
 
   return (
     <div>
-      <div className="">
-        <div className="flex px-6 pt-6 z-0">
-          <div className="h-80 w-full rounded-2xl bg-gradient-to-r from-green-300 via-blue-500 to-purple-600"></div>
-        </div>
-        <div className="flex z-10 -mt-20 mx-auto">
+      <div className="flex flex-col w-full">
+        <CoverImage />
+        <div className="flex z-10 mx-auto -mt-20 rounded-full border-white border-4 overflow-hidden">
           <Image
             src="https://storage.googleapis.com/sentinel-nft/raw-assets/f741b19deee41d289b7f6f21c5f063015bb0b4df257415fa08aabde17b58673c.png"
             alt="nft"
@@ -32,16 +30,20 @@ const AccountPage: NextPage = () => {
             width={160}
           />
         </div>
+        <h1 className="w-full justify-center text-center font-semibold text-2xl mt-3">
+          {wallet?.address || "displayname.eth"}
+        </h1>
       </div>
-      <button
-        className="btn btn-primary"
-        onClick={() => {
-          router.push("/account/edit");
-        }}
-      >
-        Edit My Account
-      </button>
-      <h1>{wallet?.address || "Display Name"}</h1>
+      <div className="flex w-full justify-center mt-4 mb-8">
+        <button
+          className="px-6 py-3 rounded-xl border border-gray-300 font-medium shadow-sm hover:bg-gray-100"
+          onClick={() => {
+            router.push("/account/edit");
+          }}
+        >
+          Edit avatar
+        </button>
+      </div>
       <NFTGallery
         address={
           wallet?.address || "0x78A42a84bFE3E173C3A9246b3F5F1c5Aa8BBaE72"

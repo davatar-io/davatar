@@ -4,15 +4,12 @@ import Head from 'next/head';
 import Image from 'next/image';
 import styles from '../styles/Home.module.css';
 
+import useProvider from 'hooks/useProvider';
 import useWallet from 'hooks/useWallet';
 
-import Web3 from 'web3';
-import Web3Modal from 'web3modal';
-
-import WalletConnectProvider from '@walletconnect/web3-provider';
-import Header from 'components/Header';
-
 const Home: NextPage = () => {
+  const { wallet } = useWallet();
+  const { connectWallet, disconnectWallet } = useProvider();
   return (
     <div className={styles.container}>
       <Head>
@@ -42,6 +39,21 @@ const Home: NextPage = () => {
             <h2>Login</h2>
           </a>
         </div>
+        <h2>{wallet?.address}</h2>
+        <button
+          onClick={() => {
+            connectWallet();
+          }}
+        >
+          connect
+        </button>
+        <button
+          onClick={() => {
+            disconnectWallet();
+          }}
+        >
+          logout
+        </button>
       </main>
 
       <footer className={styles.footer}>

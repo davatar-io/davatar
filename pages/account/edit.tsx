@@ -18,9 +18,9 @@ const AccountEditPage: NextPage = () => {
   const renderImageTypeButtonGroup = () => {
     return (
       <div className="flex w-full mb-8">
-        <div className="flex mx-auto bg-gray-200 rounded-xl overflow-hidden">
+        <div className="flex mx-auto bg-gray-200 rounded-2xl overflow-hidden border-gray-200 p-1">
           <div
-            className={`bg-gray-200 px-6 py-3 cursor-pointer ${imageType === 'nft' && 'bg-gray-900 text-white font-semibold'}`}
+            className={`bg-gray-200 px-6 py-3 cursor-pointer ${imageType === 'nft' && 'bg-gradient-to-br from-gray-700 to-gray-900 text-white font-semibold rounded-xl'}`}
             onClick={() => {
               setImageType('nft');
             }}
@@ -28,7 +28,7 @@ const AccountEditPage: NextPage = () => {
             NFTs
           </div>
           <div
-            className={`bg-gray-200 px-6 py-3 cursor-pointer ${imageType === 'upload' && 'bg-gray-900 text-white font-semibold'}`}
+            className={`bg-gray-200 px-6 py-3 cursor-pointer ${imageType === 'upload' && 'bg-gradient-to-br from-gray-700 to-gray-900 text-white font-semibold rounded-xl'}`}
             onClick={() => {
               setImageType('upload');
             }}
@@ -42,7 +42,7 @@ const AccountEditPage: NextPage = () => {
 
   const renderImageSelect = () => {
     return (
-      <div>
+      <div className="flex justify-center items-center">
         {imageType === "nft" ? (
           <NFTGallery
             address={
@@ -68,7 +68,7 @@ const AccountEditPage: NextPage = () => {
   const renderButtonDone = () => {
     return (
       <button
-        className={`px-6 py-3 bg-gray-900 font-semibold text-white rounded-xl hover:bg-gray-800 active:scale-105 transition-all ease-in-out ${imageType === "nft" && "scale-110"}`}
+        className={`px-6 py-3 bg-gray-900 font-semibold text-white rounded-xl hover:bg-gray-800 active:scale-105 transition-all ease-in-out ${imageType === "nft" && ""}`}
         onClick={() => {
           console.log("Submit this image", image);
           // how to pass data via router?
@@ -85,8 +85,10 @@ const AccountEditPage: NextPage = () => {
 
   return (
     <div className="flex">
-      <div className="w-full max-w-4xl mx-auto">
-        <p>edit stuff</p>
+      <div className="w-full flex flex-col max-w-4xl mx-auto">
+        <div className="flex w-full">
+          <div className="mx-auto mb-8 text-3xl font-semibold">Choose a profile picture</div>
+        </div>
         {renderImageTypeButtonGroup()}
         {renderImageSelect()}
       </div>

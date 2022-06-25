@@ -1,14 +1,14 @@
 import type { NextPage } from 'next';
-import Head from 'next/head';
-import Image from 'next/image';
+import { useRouter } from 'next/router';
 
 const AccountPage: NextPage = () => {
+  const router = useRouter();
   return (
     <div>
       <button
         className="button button-primary"
         onClick={() => {
-          alert('clicked');
+          router.push('/account/edit');
         }}
       >
         Edit My Account

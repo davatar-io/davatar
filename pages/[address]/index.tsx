@@ -32,9 +32,23 @@ const AddressPage: NextPage = () => {
   }, [address]);
 
   return (
-    <div>
+    <div className="flex flex-col max-w-3xl px-4 mx-auto">
       <div className="flex">
-        Header
+        Davatar.io
+      </div>
+      <div className="flex">
+        Cover image
+      </div>
+      <div className="flex">
+        {nfts && <Image
+          src={nfts[0].cached_file_url}
+          alt="nft"
+          width={100}
+          height={100}
+          layout='intrinsic'
+          className="flex flex-shrink-0"
+         />
+        }
       </div>
       <div className="flex">
         <h1>{address}</h1>  
@@ -43,25 +57,36 @@ const AddressPage: NextPage = () => {
         Bio
       </div>
       <div className="flex">
+        <h2>
+          Contact
+        </h2>
+        <div className="flex">
+          Twitter
+        </div>
+      </div>
+      <div className="flex flex-wrap w-full">
         {nfts &&
           nfts.map((nft, i) => {
             console.log("nft", nft);
 
             return (
-              <div className="flex-col" key={i}>
-                {nft.metadata.name}
-                <Image
-                  src={nft.cached_file_url}
-                  alt="nft"
-                  width={500}
-                  height={500}
-                  layout='fixed'
-                  className="flex flex-shrink-0"
-                />
+              <div className="flex" key={i}>
+                <div className="flex flex-col h-48">
+                  <div className="flex w-full h-full relative">
+                    <Image
+                      src={nft.cached_file_url}
+                      alt="nft"
+                      layout='fill'
+                      objectFit='contain'
+                    />
+                  </div>
+                  {nft.metadata.name}
+                </div>
               </div>
             );
           })}
       </div>
+      <div className="flex">Footer</div>
     </div>
   );
 };

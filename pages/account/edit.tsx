@@ -1,4 +1,7 @@
-import type { NextPage } from 'next';
+import { useEffect, useState } from "react";
+import type { NextPage } from "next";
+import axios from "axios";
+import Image from "next/image";
 
 const AccountEditPage: NextPage = () => {
   return (

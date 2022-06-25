@@ -6,7 +6,7 @@ import Image from "next/image";
 
 const AddressPage: NextPage = () => {
   const router = useRouter();
-  const { address } = router.query;
+  const address = "0x78A42a84bFE3E173C3A9246b3F5F1c5Aa8BBaE72";
   const [nfts, setNfts] = useState<any>();
 
   useEffect(() => {
@@ -36,33 +36,8 @@ const AddressPage: NextPage = () => {
       <div className="flex">
         Davatar.io
       </div>
-      <div className="flex">
-        Cover image
-      </div>
-      <div className="flex">
-        {nfts && <Image
-          src={nfts[0].cached_file_url}
-          alt="nft"
-          width={100}
-          height={100}
-          layout='intrinsic'
-          className="flex flex-shrink-0"
-         />
-        }
-      </div>
-      <div className="flex">
-        <h1>{address}</h1>  
-      </div>
-      <div className="flex">
-        Bio
-      </div>
-      <div className="flex">
-        <h2>
-          Contact
-        </h2>
-        <div className="flex">
-          Twitter
-        </div>
+      <div className="flex w-48 h-48 bg-gray-100">
+        
       </div>
       <div className="flex flex-wrap w-full">
         {nfts &&

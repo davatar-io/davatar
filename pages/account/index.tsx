@@ -1,9 +1,11 @@
-import type { NextPage } from 'next';
-import { useRouter } from 'next/router';
+import type { NextPage } from "next";
+import { useRouter, withRouter } from "next/router";
 
-import useWallet from 'hooks/useWallet';
+import useWallet from "hooks/useWallet";
 
-const AccountPage: NextPage = () => {
+const AccountPage: NextPage = ({ router: fromEdit }) => {
+  console.log("selected NFt ", fromEdit.query.selectedNFT);
+
   const { wallet } = useWallet();
   const router = useRouter();
   return (
@@ -12,7 +14,7 @@ const AccountPage: NextPage = () => {
       <button
         className="btn btn-primary"
         onClick={() => {
-          router.push('/account/edit');
+          router.push("/account/edit");
         }}
       >
         Edit My Account
@@ -21,4 +23,4 @@ const AccountPage: NextPage = () => {
   );
 };
 
-export default AccountPage;
+export default withRouter(AccountPage);

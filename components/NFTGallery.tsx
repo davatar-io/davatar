@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
-import axios from 'axios';
-import Image from 'next/image';
+import { useEffect, useState } from "react";
+import axios from "axios";
+import Image from "next/image";
 
-import { NFTData } from 'types/NFTPort';
+import { NFTData } from "types/NFTPort";
 
 interface Props {
   address: string;
@@ -10,8 +10,9 @@ interface Props {
 }
 
 const NFTGallery = ({ address, onSelect }: Props) => {
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
   const [nfts, setNfts] = useState<NFTData[]>();
+  const [selectedKey, setSelectedKey] = useState<number>();
 
   useEffect(() => {
     if (address) {
@@ -19,17 +20,16 @@ const NFTGallery = ({ address, onSelect }: Props) => {
         .get(`https://api.nftport.xyz/v0/accounts/${address}`, {
           params: {
             account_address: address,
-            chain: 'ethereum',
-            include: 'metadata',
-            page_size: '10',
+            chain: "ethereum",
+            include: "metadata",
+            page_size: "10",
           },
           headers: {
-            'Content-Type': 'application/json',
-            Authorization: '51bb64f4-d1da-462a-b285-081b6db439fc',
+            "Content-Type": "application/json",
+            Authorization: "51bb64f4-d1da-462a-b285-081b6db439fc",
           },
         })
         .then((result) => {
-          console.log(result.data);
           setNfts(result.data.nfts);
         })
         .finally(() => {
@@ -42,9 +42,12 @@ const NFTGallery = ({ address, onSelect }: Props) => {
     return (
       <div
         key={index}
-        className={`${onSelect ? 'cursor-pointer' : ''} `}
+        className={`${onSelect ? "cursor-pointer" : ""} ${
+          selectedKey === index ? "border-solid border-2 border-indigo-600" : ""
+        }`}
         onClick={() => {
           onSelect && onSelect(nft);
+          setSelectedKey(index);
         }}
       >
         <div className="flex flex-col h-48">
@@ -58,7 +61,7 @@ const NFTGallery = ({ address, onSelect }: Props) => {
               />
             )}
           </div>
-          {nft.metadata?.name || 'Unnamed'}
+          {nft.metadata?.name || "Unnamed"}
         </div>
       </div>
     );
@@ -66,6 +69,7 @@ const NFTGallery = ({ address, onSelect }: Props) => {
 
   if (loading) {
     // TODO: return loading screen here
+    return <div>Loading your NFTs...</div>;
   }
 
   return (
@@ -73,7 +77,7 @@ const NFTGallery = ({ address, onSelect }: Props) => {
       <div className="flex flex-wrap w-full">
         {nfts &&
           nfts.map((nft, i) => {
-            console.log('nft', nft);
+            // console.log("nft", nft);
             return renderNFT(nft, i);
           })}
       </div>

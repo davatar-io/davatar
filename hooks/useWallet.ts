@@ -1,8 +1,6 @@
 import { atom, useRecoilState } from 'recoil';
 
-interface Wallet {
-  address: string;
-}
+import { Wallet } from 'types/Wallet';
 interface WalletState {
   wallet?: Wallet;
 }
@@ -21,6 +19,7 @@ const useWallet = (): UseWalletHook => {
   const [walletState, setWalletState] = useRecoilState(state);
   const { wallet } = walletState;
   const setWallet = (wallet: Wallet) => {
+    console.log('\n\n\n\nhitting set wallet');
     setWalletState({ wallet });
   };
 

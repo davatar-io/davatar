@@ -77,17 +77,17 @@ const AccountEditPage: NextPage = () => {
     <div>
       <h1>Choose a profile picture from your wallet</h1>
       {ensNames &&
-          ensNames.map((ens, i) => {
-            return (
-              <div className="flex" key={i}>
-                <div className="flex flex-col h-48">
-                  <div className="flex w-full h-full relative">
-                    {ens}.eth
-                  </div>
-                </div>
-              </div>
-            );
-          })}
+        ensNames.map((ens, i) => {
+          return (
+            <div className="flex flex-col" key={i}>
+              {ens}.eth
+            </div>
+          );
+        })
+      }
+      <div className="flex">
+        Next
+      </div>
     </div>
   );
 };

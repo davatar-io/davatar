@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import axios from "axios";
 
-const NFTPORT_API = "d447284d-dd1c-42f3-9daa-04510ecd09d2"
+const NFTPORT_API = ""
 
 const getDefault = async (address: string) => `https://avatars.dicebear.com/api/bottts/${address}.png`
 

@@ -43,7 +43,7 @@ const NFTGallery = ({ address, onSelect }: Props) => {
     return (
       <div
         key={index}
-        className={`${onSelect ? "cursor-pointer" : ""} ${
+        className={`m-6 ${onSelect ? "cursor-pointer" : ""} ${
           selectedKey === index ? "border-solid border-2 border-indigo-600" : ""
         }`}
         onClick={() => {

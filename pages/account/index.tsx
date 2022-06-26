@@ -17,6 +17,7 @@ const AccountPage: NextPage = () => {
     }
 
     console.log("wallet: ", wallet);
+    console.log("window.location.host: ", window.location);
   }, [router, wallet, walletLoading]);
 
   const CoverImage = () => {
@@ -39,12 +40,12 @@ const AccountPage: NextPage = () => {
     <div>
       <div className="flex flex-col w-full">
         <CoverImage />
-        <div className="flex mx-auto -mt-20 rounded-full border-white border-8 overflow-hidden">
+        <div className="flex mx-auto -mt-20 rounded-full border-white border-8 overflow-hidden bg-gray-200">
           <Image
             // @ts-ignore
             src={
               wallet.avatar ||
-              `${window.location}/api/v1/${wallet.ens || wallet.address}`
+              `${window.location.origin}/api/v1/${wallet.ens || wallet.address}`
             }
             alt="nft"
             layout="fixed"

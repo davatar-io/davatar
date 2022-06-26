@@ -1,8 +1,8 @@
-import type { NextPage } from "next";
-import { useRouter } from "next/router";
-import Image from "next/image";
-import useWallet from "hooks/useWallet";
-import NFTGallery from "components/NFTGallery";
+import type { NextPage } from 'next';
+import { useRouter } from 'next/router';
+import Image from 'next/image';
+import { useWallet } from 'context/WalletContext';
+import NFTGallery from 'components/NFTGallery';
 
 const AccountPage: NextPage = () => {
   const { wallet } = useWallet();
@@ -31,14 +31,14 @@ const AccountPage: NextPage = () => {
           />
         </div>
         <h1 className="w-full justify-center text-center font-semibold text-2xl mt-3">
-          {wallet?.address || "displayname.eth"}
+          {wallet?.address || 'displayname.eth'}
         </h1>
       </div>
       <div className="flex w-full justify-center mt-4 mb-8">
         <button
           className="px-6 py-3 rounded-xl border border-gray-300 font-medium shadow-sm hover:bg-gray-100"
           onClick={() => {
-            router.push("/account/edit");
+            router.push('/account/edit');
           }}
         >
           Edit avatar
@@ -46,7 +46,7 @@ const AccountPage: NextPage = () => {
       </div>
       <NFTGallery
         address={
-          wallet?.address || "0x78A42a84bFE3E173C3A9246b3F5F1c5Aa8BBaE72"
+          wallet?.address || '0x78A42a84bFE3E173C3A9246b3F5F1c5Aa8BBaE72'
         }
       />
     </div>

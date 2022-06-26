@@ -1,10 +1,12 @@
-import React from "react";
-import Image from "next/image";
-import Link from "next/link";
+import React from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
 
-import logoGlyph from "../assets/LogoGlyph.png";
-import Button from "../components/Button";
-import useWallet from "hooks/useWallet";
+import ConnectWalletButton from 'components/ConnectWalletButton';
+
+import logoGlyph from '../assets/LogoGlyph.png';
+import Button from '../components/Button';
+import { useWallet } from 'context/WalletContext';
 
 const Logo = () => {
   return (
@@ -31,14 +33,15 @@ const Header = () => {
   return (
     <div className="flex h-20 px-10 justify-between items-center">
       <Logo />
-      {!wallet?.address ? (
+      <ConnectWalletButton />
+      {/* {!wallet?.address ? (
         <Button
           label="Connect wallet"
           callback={() => {
             console.log("Connect wallet");
           }}
         />
-      ) : null}
+      ) : null} */}
     </div>
   );
 };

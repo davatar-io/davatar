@@ -1,12 +1,13 @@
-import React from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
+import React from "react";
+import Image from "next/image";
+import Link from "next/link";
 
-import ConnectWalletButton from 'components/ConnectWalletButton';
+import ConnectWalletButton from "components/ConnectWalletButton";
 
-import logoGlyph from '../assets/LogoGlyph.png';
-import Button from '../components/Button';
-import { useWallet } from 'context/WalletContext';
+import logoGlyph from "../assets/LogoGlyph.png";
+import Button from "../components/Button";
+import { useWallet } from "context/WalletContext";
+import { useRouter } from "next/router";
 
 const Logo = () => {
   return (
@@ -29,19 +30,12 @@ const Logo = () => {
 
 const Header = () => {
   const { wallet } = useWallet();
+  const router = useRouter();
 
   return (
     <div className="flex h-20 px-10 justify-between items-center">
-      <Logo />
+      {router.pathname !== "/" ? <Logo /> : <div></div>}
       <ConnectWalletButton />
-      {/* {!wallet?.address ? (
-        <Button
-          label="Connect wallet"
-          callback={() => {
-            console.log("Connect wallet");
-          }}
-        />
-      ) : null} */}
     </div>
   );
 };

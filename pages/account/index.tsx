@@ -3,10 +3,19 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import { useWallet } from "context/WalletContext";
 import NFTGallery from "components/NFTGallery";
+import { useEffect } from "react";
+import LoadingIndicator from "components/LoadingIndicator";
+import { shortenAddress } from "utils/shortenUrl";
 
 const AccountPage: NextPage = () => {
-  const { wallet } = useWallet();
+  const { wallet, walletLoading } = useWallet();
   const router = useRouter();
+
+  useEffect(() => {
+    if (!wallet && !walletLoading) {
+      router.push("/");
+    }
+  }, [router, wallet, walletLoading]);
 
   const CoverImage = () => {
     return (
@@ -15,6 +24,14 @@ const AccountPage: NextPage = () => {
       </div>
     );
   };
+
+  if (!wallet || walletLoading) {
+    return (
+      <div className="flex w-full justify-center">
+        <LoadingIndicator />
+      </div>
+    );
+  }
 
   return (
     <div>
@@ -31,7 +48,7 @@ const AccountPage: NextPage = () => {
           />
         </div>
         <h1 className="w-full justify-center text-center font-semibold text-2xl mt-3">
-          {wallet?.ens || wallet?.address}
+          {wallet?.ens || shortenAddress(wallet?.address)}
         </h1>
       </div>
       <div className="flex w-full justify-center mt-4 mb-8">

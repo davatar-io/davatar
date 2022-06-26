@@ -11,9 +11,14 @@ class WalletManager {
   signer?: ethers.providers.JsonRpcSigner;
 
   onWalletConnected?: (wallet: Wallet) => void;
+  setWalletLoading?: (loading: boolean) => void;
 
-  initialize = (onWalletConnected: (wallet: Wallet) => void) => {
+  initialize = (
+    onWalletConnected: (wallet: Wallet) => void,
+    setWalletLoading: (loading: boolean) => void
+  ) => {
     this.onWalletConnected = onWalletConnected;
+    this.setWalletLoading = setWalletLoading;
 
     const providerOptions = {
       walletconnect: {
@@ -33,10 +38,13 @@ class WalletManager {
     // connect automatically and without a popup if user is already connected
     if (this.web3Modal && this.web3Modal.cachedProvider) {
       this.connect();
+    } else {
+      this.setWalletLoading && this.setWalletLoading(false);
     }
   };
 
   connect = async () => {
+    this.setWalletLoading && this.setWalletLoading(true);
     const instance = await this.web3Modal?.connect();
     const web3 = new Web3(instance);
     const provider = new ethers.providers.Web3Provider(instance);
@@ -51,6 +59,7 @@ class WalletManager {
     console.log('wallet: ', { address, ens, ensAvatar });
     this.onWalletConnected &&
       this.onWalletConnected({ address, ens, avatar: ensAvatar });
+    this.setWalletLoading && this.setWalletLoading(false);
   };
 
   disconnect = () => {

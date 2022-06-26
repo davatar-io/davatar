@@ -8,12 +8,27 @@ import NFTGallery from "components/NFTGallery";
 
 import { useWallet } from "context/WalletContext";
 import { useRouter } from "next/router";
+import LoadingIndicator from "components/LoadingIndicator";
 
 const AccountEditPage: NextPage = () => {
-  const { wallet } = useWallet();
+  const { wallet, walletLoading } = useWallet();
   const [image, setImage] = useState<any>();
   const [imageType, setImageType] = useState<"nft" | "upload">("nft");
   const router = useRouter();
+
+  useEffect(() => {
+    if (!wallet && !walletLoading) {
+      router.push("/");
+    }
+  }, [router, wallet, walletLoading]);
+
+  if (!wallet || walletLoading) {
+    return (
+      <div className="flex w-full justify-center">
+        <LoadingIndicator />
+      </div>
+    );
+  }
 
   const renderImageTypeButtonGroup = () => {
     return (

@@ -5,8 +5,13 @@ import { Wallet } from 'types/Wallet';
 type WalletContextType = {
   wallet?: Wallet;
   setWallet: (wallet: Wallet) => void;
+  walletLoading?: boolean;
+  setWalletLoading: (loading: boolean) => void;
 };
-const walletContextDefaultValues: WalletContextType = { setWallet: () => {} };
+const walletContextDefaultValues: WalletContextType = {
+  setWallet: () => {},
+  setWalletLoading: () => {},
+};
 const WalletContext = React.createContext<WalletContextType>(
   walletContextDefaultValues
 );
@@ -21,15 +26,18 @@ type Props = {
 
 export function WalletContextProvider({ children }: Props) {
   const [wallet, setWallet] = useState<Wallet>();
+  const [walletLoading, setWalletLoading] = useState<boolean>(true);
 
   useEffect(() => {
     if (setWallet) {
-      WalletManager.initialize(setWallet);
+      WalletManager.initialize(setWallet, setWalletLoading);
     }
-  }, [setWallet]);
+  }, [setWallet, setWalletLoading]);
 
   return (
-    <WalletContext.Provider value={{ wallet, setWallet }}>
+    <WalletContext.Provider
+      value={{ wallet, setWallet, walletLoading, setWalletLoading }}
+    >
       {children}
     </WalletContext.Provider>
   );

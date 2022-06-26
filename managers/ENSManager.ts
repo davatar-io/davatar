@@ -7,7 +7,7 @@ class ENSManager {
   };
 
   setAvatar = (ensAddress: string, davatarURL: string) => {
-    this.ENSInstance.setRecords(ensAddress, {
+    return this.ENSInstance.setRecords(ensAddress, {
       texts: [{ key: 'avatar', value: davatarURL }],
     });
   };

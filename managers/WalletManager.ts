@@ -46,27 +46,16 @@ class WalletManager {
 
     let address = await signer.getAddress();
     let ens = (await provider.lookupAddress(address)) || undefined;
-    // TODO: fetch the default avatar
-    console.log('wallet: ', { address, ens });
-    this.onWalletConnected && this.onWalletConnected({ address, ens });
+    let ensAvatar = (await provider.getAvatar(address)) || undefined;
+
+    console.log('wallet: ', { address, ens, ensAvatar });
+    this.onWalletConnected &&
+      this.onWalletConnected({ address, ens, avatar: ensAvatar });
   };
 
   disconnect = () => {
     this.web3Modal?.clearCachedProvider();
     window.location.reload();
-  };
-
-  setAvatar = async (ensAddress: string) => {
-    console.log('ens address', ensAddress);
-    const resolver = await this.provider?.getResolver(ensAddress);
-    console.log(resolver);
-    let contract = new ethers.Contract(
-      ethers.providers.getNetwork().ensAddress,
-      ensabi
-    );
-    // this.provider?.call(ensAddress).then((data) => {
-    //   console.log(data);
-    // });
   };
 }
 

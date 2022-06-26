@@ -92,8 +92,10 @@ const Home: NextPage = () => {
         </button>
         <button
           onClick={() => {
-            setWallet({ address: "asdfasfd" });
-            ENSManager.setAvatar(wallet?.ens!, 'https://www.google.com');
+            ENSManager.setAvatar(
+              wallet?.ens!,
+              'https://pbs.twimg.com/profile_images/1237620200821805057/n52DTaCC_400x400.jpg'
+            );
           }}
         >
           set avatar

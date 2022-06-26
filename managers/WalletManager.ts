@@ -8,11 +8,11 @@ import { Wallet } from 'types/Wallet';
 class WalletManager {
   web3Modal?: Web3Modal;
   provider?: ethers.providers.Web3Provider;
+  signer?: ethers.providers.JsonRpcSigner;
 
   onWalletConnected?: (wallet: Wallet) => void;
 
   initialize = (onWalletConnected: (wallet: Wallet) => void) => {
-    console.log('**WalletManager initialize', onWalletConnected);
     this.onWalletConnected = onWalletConnected;
 
     const providerOptions = {
@@ -37,20 +37,20 @@ class WalletManager {
   };
 
   connect = async () => {
-    console.log('called connect wallet');
     const instance = await this.web3Modal?.connect();
-    console.log('connected');
     const web3 = new Web3(instance);
     const provider = new ethers.providers.Web3Provider(instance);
     const signer = provider.getSigner();
     this.provider = provider;
+    this.signer = signer;
 
     let address = await signer.getAddress();
     let ens = (await provider.lookupAddress(address)) || undefined;
-    console.log('just got wallet info: ', { address, ens });
-    console.log(this.onWalletConnected);
-    this.onWalletConnected && this.onWalletConnected({ address, ens });
-    console.log('here again');
+    let ensAvatar = (await provider.getAvatar(address)) || undefined;
+
+    console.log('wallet: ', { address, ens, ensAvatar });
+    this.onWalletConnected &&
+      this.onWalletConnected({ address, ens, avatar: ensAvatar });
   };
 
   disconnect = () => {

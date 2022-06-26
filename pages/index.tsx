@@ -1,16 +1,13 @@
 import { useEffect, useState } from "react";
 import type { NextPage } from "next";
-import Head from "next/head";
 import Image from "next/image";
-import { useRouter } from "next/router";
-import styles from "../styles/Home.module.css";
 
 import { useWallet } from "context/WalletContext";
 import WalletManager from "managers/WalletManager";
 
-// import logoColour from "../assets/LogoColour.png";
 import logoColour from "../assets/LogoColour.svg";
 import Button from "components/Button";
+import { useRouter } from "next/router";
 
 const LogoColour = () => {
   return (

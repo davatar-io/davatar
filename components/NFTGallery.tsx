@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Image from "next/image";
 
+import LoadingIndicator from "./LoadingIndicator";
+
 import { NFTData } from "types/NFTPort";
 
 interface Props {
@@ -33,7 +35,7 @@ const NFTGallery = ({ address, onSelect }: Props) => {
           setNfts(result.data.nfts);
         })
         .finally(() => {
-          // setLoading(false);
+          setLoading(false);
         });
     }
   }, [address]);
@@ -74,14 +76,9 @@ const NFTGallery = ({ address, onSelect }: Props) => {
   };
 
   if (loading) {
-    // TODO: return loading screen here
     return (
-      // <div>Loading your NFTs...</div>
-      <div className="flex justify-center items-center">
-        <div
-          className="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full"
-          role="status"
-        ></div>
+      <div className="flex mt-20">
+        <LoadingIndicator />
       </div>
     );
   }
@@ -91,7 +88,6 @@ const NFTGallery = ({ address, onSelect }: Props) => {
       <div className="flex flex-wrap w-full justify-center pb-24">
         {nfts &&
           nfts.map((nft, i) => {
-            // console.log("nft", nft);
             return renderNFT(nft, i);
           })}
       </div>

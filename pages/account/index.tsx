@@ -15,6 +15,8 @@ const AccountPage: NextPage = () => {
     if (!wallet && !walletLoading) {
       router.push("/");
     }
+
+    console.log("wallet: ", wallet);
   }, [router, wallet, walletLoading]);
 
   const CoverImage = () => {
@@ -39,7 +41,11 @@ const AccountPage: NextPage = () => {
         <CoverImage />
         <div className="flex mx-auto -mt-20 rounded-full border-white border-8 overflow-hidden">
           <Image
-            src="https://storage.googleapis.com/sentinel-nft/raw-assets/f741b19deee41d289b7f6f21c5f063015bb0b4df257415fa08aabde17b58673c.png"
+            // @ts-ignore
+            src={
+              wallet.avatar ||
+              `${window.location}/api/v1/${wallet.ens || wallet.address}`
+            }
             alt="nft"
             layout="fixed"
             objectFit="contain"

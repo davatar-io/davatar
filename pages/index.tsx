@@ -30,7 +30,7 @@ const Form = () => {
         https://davatar.io/
       </div>
       <input
-        className="appearance-none py-2 pl-0 text-gray-700 focus:outline-none focus:shadow-outline"
+        className="w-full appearance-none py-2 pl-0 text-gray-700 focus:outline-none focus:shadow-outline"
         type="text"
         placeholder="vitalik.eth"
       />

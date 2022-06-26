@@ -94,10 +94,7 @@ const AccountEditPage: NextPage = () => {
         }`}
         onClick={() => {
           console.log("Submit this image", image);
-          // how to pass data via router?
-          if (image) {
-            router.push("/account");
-          }
+          router.push("/account");
         }}
       >
         Set as ENS

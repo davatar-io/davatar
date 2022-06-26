@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@ensdomains/ensjs": "^3.0.0-alpha.1",
+    "@google-cloud/storage": "^6.2.0",
     "@walletconnect/web3-provider": "^1.7.8",
     "axios": "^0.27.2",
     "daisyui": "^2.17.0",
@@ -16,9 +18,11 @@
     "graphql": "^16.5.0",
     "graphql-request": "^4.3.0",
     "next": "12.1.6",
+    "next-transpile-modules": "^9.0.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-dropzone": "^14.2.1",
+    "react-lottie-player": "^1.4.3",
     "recoil": "^0.7.4",
     "web3": "^1.7.4",
     "web3modal": "^1.9.8"

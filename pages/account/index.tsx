@@ -1,11 +1,11 @@
-import type { NextPage } from "next";
-import { useRouter } from "next/router";
-import Image from "next/image";
-import { useWallet } from "context/WalletContext";
-import NFTGallery from "components/NFTGallery";
-import { useEffect } from "react";
-import LoadingIndicator from "components/LoadingIndicator";
-import { shortenAddress } from "utils/shortenUrl";
+import type { NextPage } from 'next';
+import { useRouter } from 'next/router';
+import Image from 'next/image';
+import { useWallet } from 'context/WalletContext';
+import NFTGallery from 'components/NFTGallery';
+import { useEffect } from 'react';
+import LoadingIndicator from 'components/LoadingIndicator';
+import { shortenAddress } from 'utils/shortenUrl';
 
 const AccountPage: NextPage = () => {
   const { wallet, walletLoading } = useWallet();
@@ -13,11 +13,11 @@ const AccountPage: NextPage = () => {
 
   useEffect(() => {
     if (!wallet && !walletLoading) {
-      router.push("/");
+      router.push('/');
     }
 
-    console.log("wallet: ", wallet);
-    console.log("window.location.host: ", window.location);
+    console.log('wallet: ', wallet);
+    console.log('window.location.host: ', window.location);
   }, [router, wallet, walletLoading]);
 
   const CoverImage = () => {
@@ -45,7 +45,7 @@ const AccountPage: NextPage = () => {
             // @ts-ignore
             src={
               wallet.avatar ||
-              `${window.location.origin}/api/v1/${wallet.ens || wallet.address}`
+              `${window.location.origin}/api/${wallet.ens || wallet.address}`
             }
             alt="nft"
             layout="fixed"
@@ -62,7 +62,7 @@ const AccountPage: NextPage = () => {
         <button
           className="px-6 py-3 rounded-xl border border-gray-300 font-medium shadow-sm hover:bg-gray-100"
           onClick={() => {
-            router.push("/account/edit");
+            router.push('/account/edit');
           }}
         >
           Edit avatar

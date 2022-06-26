@@ -934,6 +934,53 @@
   resolved "https://registry.yarnpkg.com/@sindresorhus/is/-/is-0.14.0.tgz#9fb3a3cf3132328151f353de4632e01e52102bea"
   integrity sha512-9NET910DNaIPngYnLLPeg+Ogzqsi9uM4mSboU5y6p8S5DzMTVEsJZrawi+BoDNUVBa2DhJqQYUFvMDfgU062LQ==
 
+"@supabase/functions-js@^1.3.3":
+  version "1.3.3"
+  resolved "https://registry.yarnpkg.com/@supabase/functions-js/-/functions-js-1.3.3.tgz#74803fec71f1e3b734d32a3b116ea494cfcc122d"
+  integrity sha512-35vO9niHRtzGe1QSvXKdOfvGPiX2KC44dGpWU6y0/gZCfTIgog/soU9HqABzQC/maVowO3hGLWfez5aN0MKfow==
+  dependencies:
+    cross-fetch "^3.1.5"
+
+"@supabase/gotrue-js@^1.22.14":
+  version "1.22.16"
+  resolved "https://registry.yarnpkg.com/@supabase/gotrue-js/-/gotrue-js-1.22.16.tgz#78cc3b656b96f14374e35493031a36d89a1d5a29"
+  integrity sha512-t/tR87anihvyc9ePk53NF2CG8yzTDiWOt0ReZpr7sRKV91sHNLbghVMsMDwPONWnVQ9V2/qfKutuAvPGTB/Dew==
+  dependencies:
+    cross-fetch "^3.0.6"
+
+"@supabase/postgrest-js@^0.37.2":
+  version "0.37.3"
+  resolved "https://registry.yarnpkg.com/@supabase/postgrest-js/-/postgrest-js-0.37.3.tgz#785156e68ab05fa346bd79c8e19b406e61a87228"
+  integrity sha512-Iqwv9D80YGkCi60Zl2lsV04WxOmjFqxpFmxoZ5xUqsVZHvIoAbJ9tMM3+0F7VkZZbsjnaYHrpJ58xLxU7cgy2w==
+  dependencies:
+    cross-fetch "^3.1.5"
+
+"@supabase/realtime-js@^1.7.2":
+  version "1.7.2"
+  resolved "https://registry.yarnpkg.com/@supabase/realtime-js/-/realtime-js-1.7.2.tgz#9670d02b8283d7780f4970660609077feab37296"
+  integrity sha512-DMUaFIKj7KszGtWTTQbhMmUzZf7UnwYqySsmY+G8HgYxvY3ZaVa+DZD0I6ofgr4OLNr0po/ODM2a4lf5m5GNBg==
+  dependencies:
+    "@types/phoenix" "^1.5.4"
+    websocket "^1.0.34"
+
+"@supabase/storage-js@^1.7.0":
+  version "1.7.1"
+  resolved "https://registry.yarnpkg.com/@supabase/storage-js/-/storage-js-1.7.1.tgz#3e4c327d7e54539c7fbc9f27378e48031b205d63"
+  integrity sha512-0ZlKlGgB3Qzhu07fts5pr2Y+c4xW58d7sDOB9m6nSfltS6SSfBPmqtdhU0zV9vy3vAjC74XeqUcpMhHP5E+aoA==
+  dependencies:
+    cross-fetch "^3.1.0"
+
+"@supabase/supabase-js@^1.35.3":
+  version "1.35.3"
+  resolved "https://registry.yarnpkg.com/@supabase/supabase-js/-/supabase-js-1.35.3.tgz#3ee5a8f4b2e5ba3764f39b61118e07cf9f996e8b"
+  integrity sha512-uwO8OVdMFsGZNZ1xQhFz22+PSW0EWYZ5xVq+jQeGz8nhabEu+Q9Uyep/bcNzOpyPJRzbGfxSPRzgAdAxfJgFhw==
+  dependencies:
+    "@supabase/functions-js" "^1.3.3"
+    "@supabase/gotrue-js" "^1.22.14"
+    "@supabase/postgrest-js" "^0.37.2"
+    "@supabase/realtime-js" "^1.7.2"
+    "@supabase/storage-js" "^1.7.0"
+
 "@szmarczak/http-timer@^1.1.2":
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/@szmarczak/http-timer/-/http-timer-1.1.2.tgz#b1665e2c461a2cd92f4c1bbf50d5454de0d4b421"
@@ -1072,6 +1119,11 @@
   integrity sha512-Cf63Rv7jCQ0LaL8tNXmEyqTHuIJxRdlS5vMh1mj5voN4+QFhVZnlZruezqpWYDiJ8UTzhP0VmeLXCmBk66YrMQ==
   dependencies:
     "@types/node" "*"
+
+"@types/phoenix@^1.5.4":
+  version "1.5.4"
+  resolved "https://registry.yarnpkg.com/@types/phoenix/-/phoenix-1.5.4.tgz#c08a1da6d7b4e365f6a1fe1ff9aada55f5356d24"
+  integrity sha512-L5eZmzw89eXBKkiqVBcJfU1QGx9y+wurRIEgt0cuLH0hwNtVUxtx+6cu0R2STwWj468sjXyBYPYDtGclUd1kjQ==
 
 "@types/prop-types@*":
   version "15.7.5"
@@ -2419,7 +2471,7 @@ cross-fetch@^2.1.0:
     node-fetch "^2.6.7"
     whatwg-fetch "^2.0.4"
 
-cross-fetch@^3.1.5:
+cross-fetch@^3.0.6, cross-fetch@^3.1.0, cross-fetch@^3.1.5:
   version "3.1.5"
   resolved "https://registry.yarnpkg.com/cross-fetch/-/cross-fetch-3.1.5.tgz#e1389f44d9e7ba767907f7af8454787952ab534f"
   integrity sha512-lvb1SBsI0Z7GDwmuid+mU3kWVBwTVUbe7S0H52yaaAdQOXq2YktTCZdlAcNKFzE6QtRz0snpw9bNiPeOIkkQvw==
@@ -7797,7 +7849,7 @@ webidl-conversions@^3.0.0:
   resolved "https://registry.yarnpkg.com/webidl-conversions/-/webidl-conversions-3.0.1.tgz#24534275e2a7bc6be7bc86611cc16ae0a5654871"
   integrity sha512-2JAn3z8AR6rjK8Sm8orRC0h/bcl/DqL7tRPdGZ4I1CjdF+EaMLmYxBHyXuKL849eucPFhvBoxMsflfOb8kxaeQ==
 
-websocket@^1.0.32:
+websocket@^1.0.32, websocket@^1.0.34:
   version "1.0.34"
   resolved "https://registry.yarnpkg.com/websocket/-/websocket-1.0.34.tgz#2bdc2602c08bf2c82253b730655c0ef7dcab3111"
   integrity sha512-PRDso2sGwF6kM75QykIesBijKSVceR6jL2G8NGYyq2XrItNC2P5/qL5XeR056GhA+Ly7JMFvJb9I312mJfmqnQ==

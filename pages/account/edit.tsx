@@ -36,13 +36,42 @@ const AccountEditPage: NextPage = () => {
     }
   }, [saving, savedENS, uploadedImage]);
 
-  const save = () => {
+  const save = async () => {
     if (!wallet?.ens) {
       alert(`You don't have an ENS!`);
       return;
     }
-    // const transaction = ENSManager.setAvatar(wallet.ens, 'url');
-    uploadImage();
+
+    if (!selectedNFT) {
+      alert(`You didn't select an NFT yet!`);
+      return;
+    }
+
+    setSaving(true);
+    if ((wallet.avatar || '').indexOf('davatar.io') < 0) {
+      const transaction = ENSManager.setAvatar(
+        wallet.ens,
+        `https://davatar.io/api/${wallet.address}`
+      );
+      transaction.then(() => {
+        setSavedENS(true);
+      });
+    } else {
+      setSavedENS(true);
+    }
+
+    fetch('/api/seturl', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        address: wallet.address,
+        url: selectedNFT.cached_file_url,
+      }),
+    }).then(() => {
+      setUploadedImage(true);
+    });
   };
 
   const uploadImage = async () => {
@@ -93,7 +122,7 @@ const AccountEditPage: NextPage = () => {
               'bg-gradient-to-br from-gray-700 to-gray-900 text-white font-semibold rounded-xl'
             }`}
             onClick={() => {
-              setImageType('upload');
+              // setImageType('upload');
             }}
           >
             Upload
@@ -153,7 +182,7 @@ const AccountEditPage: NextPage = () => {
 
   if (saving) {
     return (
-      <div className="flex w-full justify-center">
+      <div className="flex flex-col w-full justify-center items-center">
         <div className="mx-auto mt-6 mb-8 text-3xl font-semibold">Saving</div>
         <LoadingIndicator />
       </div>

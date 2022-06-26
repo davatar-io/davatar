@@ -24,16 +24,22 @@ const LogoColour = () => {
   );
 };
 
-const Form = () => {
+interface FormProps {
+  onChange: (value: string) => void;
+}
+const Form = ({ onChange }: FormProps) => {
   return (
     <form className="flex justify-start w-full shadow-md border bg-white">
       <div className="flex py-2 pl-3 pr-1 text-gray-900">
-        https://davatar.io/
+        https://davatar.io/api/
       </div>
       <input
         className="w-full appearance-none py-2 pl-0 text-gray-700 focus:outline-none focus:shadow-outline"
         type="text"
         placeholder="vitalik.eth"
+        onChange={(e) => {
+          onChange(e.target.value);
+        }}
       />
     </form>
   );
@@ -42,6 +48,7 @@ const Form = () => {
 const Home: NextPage = () => {
   const { wallet, setWallet } = useWallet();
   const router = useRouter();
+  const [address, setAddress] = useState<string>();
 
   useEffect(() => {
     if (wallet) {
@@ -54,7 +61,11 @@ const Home: NextPage = () => {
       <main className="flex flex-col justify-center items-center w-full">
         <LogoColour />
         <div className="w-11/12 lg:w-1/2 mt-11 mb-5">
-          <Form />
+          <Form
+            onChange={(value) => {
+              setAddress(value);
+            }}
+          />
         </div>
 
         <div className="flex gap-3">
@@ -62,7 +73,10 @@ const Home: NextPage = () => {
             variant="retro"
             label="Get Davatar"
             onClick={() => {
-              console.log('clicked');
+              window.open(
+                `https://davatar.io/api/${address ? address : 'vitalik.eth'}`,
+                '_blank'
+              );
             }}
           />
           <Button

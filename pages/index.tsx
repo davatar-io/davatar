@@ -1,13 +1,14 @@
-import { useEffect, useState } from "react";
-import type { NextPage } from "next";
-import Image from "next/image";
+import { useEffect, useState } from 'react';
+import type { NextPage } from 'next';
+import Image from 'next/image';
+import { useRouter } from 'next/router';
 
-import { useWallet } from "context/WalletContext";
-import WalletManager from "managers/WalletManager";
+import { useWallet } from 'context/WalletContext';
+import WalletManager from 'managers/WalletManager';
 
-import logoColour from "../assets/LogoColour.svg";
-import Button from "components/Button";
-import { useRouter } from "next/router";
+// import logoColour from "../assets/LogoColour.png";
+import logoColour from '../assets/LogoColour.svg';
+import Button from 'components/Button';
 
 const LogoColour = () => {
   return (
@@ -44,13 +45,12 @@ const Home: NextPage = () => {
 
   useEffect(() => {
     if (wallet) {
-      router.push("/account/");
+      router.push('/account/');
     }
   }, [wallet, router]);
 
   return (
     <div className="flex w-full center-viewport">
-      {/* <Header /> */}
       <main className="flex flex-col justify-center items-center w-full">
         <LogoColour />
         <div className="w-11/12 lg:w-1/2 mt-11 mb-5">
@@ -62,17 +62,29 @@ const Home: NextPage = () => {
             variant="retro"
             label="Get Davatar"
             onClick={() => {
-              console.log("clicked");
+              console.log('clicked');
             }}
           />
           <Button
             variant="retro"
             label="Update my Davatar"
             onClick={() => {
-              wallet ? router.push("/account/edit") : WalletManager.connect();
+              wallet ? router.push('/account/edit') : WalletManager.connect();
             }}
           />
         </div>
+
+        {/*
+        <button
+          onClick={() => {
+            ENSManager.setAvatar(
+              wallet?.ens!,
+              'https://pbs.twimg.com/profile_images/1237620200821805057/n52DTaCC_400x400.jpg'
+            );
+          }}
+        >
+          set avatar
+        </button> */}
       </main>
     </div>
   );

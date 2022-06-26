@@ -3,6 +3,8 @@ import Web3Modal from 'web3modal';
 import { ethers } from 'ethers';
 import WalletConnectProvider from '@walletconnect/web3-provider';
 
+import ENSManager from './ENSManager';
+
 import { Wallet } from 'types/Wallet';
 
 class WalletManager {
@@ -60,6 +62,8 @@ class WalletManager {
     this.onWalletConnected &&
       this.onWalletConnected({ address, ens, avatar: ensAvatar });
     this.setWalletLoading && this.setWalletLoading(false);
+
+    ENSManager.initialize(provider);
   };
 
   disconnect = () => {

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import type { NextPage } from 'next';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 
 import { useWallet } from 'context/WalletContext';
 import WalletManager from 'managers/WalletManager';

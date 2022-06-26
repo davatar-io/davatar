@@ -1,15 +1,15 @@
-import { useEffect, useState } from "react";
-import type { NextPage } from "next";
-import Head from "next/head";
-import Image from "next/image";
-import styles from "../styles/Home.module.css";
+import { useEffect, useState } from 'react';
+import type { NextPage } from 'next';
+import Head from 'next/head';
+import Image from 'next/image';
+import styles from '../styles/Home.module.css';
 
-import { useWallet } from "context/WalletContext";
-import WalletManager from "managers/WalletManager";
+import { useWallet } from 'context/WalletContext';
+import WalletManager from 'managers/WalletManager';
 
 // import logoColour from "../assets/LogoColour.png";
-import logoColour from "../assets/LogoColour.svg";
-import Button from "components/Button";
+import logoColour from '../assets/LogoColour.svg';
+import Button from 'components/Button';
 
 const LogoColour = () => {
   return (
@@ -57,14 +57,14 @@ const Home: NextPage = () => {
             variant="retro"
             label="Get Davatar"
             onClick={() => {
-              console.log("clicked");
+              console.log('clicked');
             }}
           />
           <Button
             variant="retro"
             label="Update my Davatar"
             onClick={() => {
-              console.log("clicked");
+              console.log('clicked');
             }}
           />
         </div>
@@ -83,24 +83,20 @@ const Home: NextPage = () => {
         <h2>{wallet?.address}</h2>
         <button
           onClick={() => {
-            // connectWallet();
+            ENSManager.initialize(WalletManager.provider!);
+
+            // WalletManager.setAvatar(wallet?.ens!);
           }}
         >
-          connect
-        </button>
-        <button
-          onClick={() => {
-            // disconnectWallet();
-          }}
-        >
-          logout
+          intialize ens
         </button>
         <button
           onClick={() => {
             setWallet({ address: "asdfasfd" });
+            ENSManager.setAvatar(wallet?.ens!, 'https://www.google.com');
           }}
         >
-          set address
+          set avatar
         </button>
         <h1>{wallet?.address}</h1> */}
       </main>

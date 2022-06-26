@@ -44,11 +44,7 @@ const AccountPage: NextPage = () => {
           Edit avatar
         </button>
       </div>
-      <NFTGallery
-        address={
-          wallet?.address || "0x78A42a84bFE3E173C3A9246b3F5F1c5Aa8BBaE72"
-        }
-      />
+      <NFTGallery address={wallet?.address} />
     </div>
   );
 };

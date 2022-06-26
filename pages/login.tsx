@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 import { ethers } from 'ethers';
 import styles from '../styles/Home.module.css';
 
-import useWallet from 'hooks/useWallet';
+import { useWallet } from 'context/WalletContext';
 
 const LoginPage: NextPage = () => {
   // const [web3Modal, setWeb3Modal] = useState<Web3Modal | null>(null);

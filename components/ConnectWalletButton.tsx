@@ -1,4 +1,3 @@
-// import useWallet from 'hooks/useWallet';
 import WalletManager from 'managers/WalletManager';
 import { useWallet } from 'context/WalletContext';
 

@@ -6,7 +6,7 @@ import ConnectWalletButton from 'components/ConnectWalletButton';
 
 import logoGlyph from '../assets/LogoGlyph.png';
 import Button from '../components/Button';
-import useWallet from 'hooks/useWallet';
+import { useWallet } from 'context/WalletContext';
 
 const Logo = () => {
   return (

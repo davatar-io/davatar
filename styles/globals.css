@@ -1,6 +1,6 @@
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
 
 html,
 body {
@@ -30,7 +30,8 @@ a {
 /*
  * ==== hexagon
  */
- .hexa, .hexa div {
+.hexa,
+.hexa div {
   margin: 0 auto;
   transform-origin: 50% 50%;
   overflow: hidden;
@@ -53,4 +54,8 @@ a {
 }
 .hex2 {
   transform: rotate(-60deg);
+}
+
+.center-viewport {
+  height: calc(100vh - 180px);
 }

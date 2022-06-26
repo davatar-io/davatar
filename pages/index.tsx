@@ -1,31 +1,75 @@
-import { useEffect, useState } from 'react';
-import type { NextPage } from 'next';
-import Head from 'next/head';
-import Image from 'next/image';
-import styles from '../styles/Home.module.css';
+import { useEffect, useState } from "react";
+import type { NextPage } from "next";
+import Head from "next/head";
+import Image from "next/image";
+import styles from "../styles/Home.module.css";
 
-import Header from 'components/Header';
+import { useWallet } from "context/WalletContext";
+import WalletManager from "managers/WalletManager";
 
-import { useWallet } from 'context/WalletContext';
-import WalletManager from 'managers/WalletManager';
+// import logoColour from "../assets/LogoColour.png";
+import logoColour from "../assets/LogoColour.svg";
+import Button from "components/Button";
+
+const LogoColour = () => {
+  return (
+    <div className="flex items-center">
+      <Image
+        src={logoColour}
+        alt="davatar.io color logo"
+        layout="fixed"
+        width={355}
+        height={108}
+      />
+    </div>
+  );
+};
+
+const Form = () => {
+  return (
+    <form className="flex justify-start w-full shadow-md border bg-white">
+      <div className="flex py-2 pl-3 pr-1 text-gray-900">
+        https://davatar.io/
+      </div>
+      <input
+        className="appearance-none py-2 pl-0 text-gray-700 focus:outline-none focus:shadow-outline"
+        type="text"
+        placeholder="vitalik.eth"
+      />
+    </form>
+  );
+};
 
 const Home: NextPage = () => {
   const { wallet, setWallet } = useWallet();
 
   return (
-    <div className={styles.container}>
+    <div className="flex w-full center-viewport">
       {/* <Header /> */}
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-        <p className="w-full text-left bg-black">hallo</p>
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.tsx</code>
-        </p>
+      <main className="flex flex-col justify-center items-center w-full">
+        <LogoColour />
+        <div className="w-1/2 mt-11 mb-5">
+          <Form />
+        </div>
 
-        <div className={styles.grid}>
+        <div className="flex gap-3">
+          <Button
+            variant="retro"
+            label="Get Davatar"
+            onClick={() => {
+              console.log("clicked");
+            }}
+          />
+          <Button
+            variant="retro"
+            label="Update my Davatar"
+            onClick={() => {
+              console.log("clicked");
+            }}
+          />
+        </div>
+
+        {/* <div className={styles.grid}>
           <a href="/account" className={styles.card}>
             <h2>Account</h2>
           </a>
@@ -53,26 +97,13 @@ const Home: NextPage = () => {
         </button>
         <button
           onClick={() => {
-            setWallet({ address: 'asdfasfd' });
+            setWallet({ address: "asdfasfd" });
           }}
         >
           set address
         </button>
-        <h1>{wallet?.address}</h1>
+        <h1>{wallet?.address}</h1> */}
       </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
-        </a>
-      </footer>
     </div>
   );
 };

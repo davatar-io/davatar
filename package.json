@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@ensdomains/ensjs": "^3.0.0-alpha.1",
+    "@google-cloud/storage": "^6.2.0",
     "@walletconnect/web3-provider": "^1.7.8",
     "axios": "^0.27.2",
     "daisyui": "^2.17.0",

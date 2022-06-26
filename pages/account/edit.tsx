@@ -47,11 +47,20 @@ const AccountEditPage: NextPage = () => {
       return;
     }
 
-    const imageURL = selectedNFT.cached_file_url || selectedNFT.metadata;
-    // fetch('/api/seturl', )
-    // const transaction = ENSManager.setAvatar(wallet.ens, 'url');
-    // uploadImage();
-    const result = await fetch('/api/seturl', {
+    setSaving(true);
+    if ((wallet.avatar || '').indexOf('davatar.io') < 0) {
+      const transaction = ENSManager.setAvatar(
+        wallet.ens,
+        `https://davatar.io/api/${wallet.address}`
+      );
+      transaction.then(() => {
+        setSavedENS(true);
+      });
+    } else {
+      setSavedENS(true);
+    }
+
+    fetch('/api/seturl', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -60,6 +69,8 @@ const AccountEditPage: NextPage = () => {
         address: wallet.address,
         url: selectedNFT.cached_file_url,
       }),
+    }).then(() => {
+      setUploadedImage(true);
     });
   };
 
@@ -111,7 +122,7 @@ const AccountEditPage: NextPage = () => {
               'bg-gradient-to-br from-gray-700 to-gray-900 text-white font-semibold rounded-xl'
             }`}
             onClick={() => {
-              setImageType('upload');
+              // setImageType('upload');
             }}
           >
             Upload
@@ -171,7 +182,7 @@ const AccountEditPage: NextPage = () => {
 
   if (saving) {
     return (
-      <div className="flex w-full justify-center">
+      <div className="flex flex-col w-full justify-center items-center">
         <div className="mx-auto mt-6 mb-8 text-3xl font-semibold">Saving</div>
         <LoadingIndicator />
       </div>

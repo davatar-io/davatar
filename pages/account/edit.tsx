@@ -17,7 +17,7 @@ const AccountEditPage: NextPage = () => {
   const router = useRouter();
 
   const [selectedNFT, setSelectedNFT] = useState<NFTData>();
-  const [image, setImage] = useState<any>();
+  const [image, setImage] = useState<File>();
   const [imageType, setImageType] = useState<'nft' | 'upload'>('nft');
 
   const [saving, setSaving] = useState<boolean>(false);
@@ -45,12 +45,22 @@ const AccountEditPage: NextPage = () => {
     uploadImage();
   };
 
-  const uploadImage = () => {
-    // const fileBuffer = Buffer.from(image, 'base64');
-    // console.log(fileBuffer);
+  const uploadImage = async () => {
+    console.log('uploadImage');
+    if (!image) return;
+    // console.log('found image', image);
+    // const fileToBlob = async (file: File) =>
+    //   new Blob([new Uint8Array(await file.arrayBuffer())], { type: file.type });
+    // const blob = await fileToBlob(image);
+    // console.log('file turned to blob');
+
+    // @ts-ignore
+    const fileBuffer = Buffer.from(image, 'base64');
+    console.log(fileBuffer);
     let data = new FormData();
     data.append('address', wallet?.address!);
-    data.append('file', image);
+    // @ts-ignore
+    data.append('file', fileBuffer);
     axios
       .post('/api/upload', data)
       .then((res) => {
@@ -109,8 +119,7 @@ const AccountEditPage: NextPage = () => {
         ) : (
           <ImageDropzone
             onImageSelect={(img) => {
-              console.log(img);
-              alert('image was set');
+              console.log('img set: ', img);
               setImage(img);
             }}
           />

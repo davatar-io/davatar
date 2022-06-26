@@ -16,7 +16,7 @@ export default function handler(
 }
 
 
-const uploadToBucket = async (file: Buffer, address: string) => {
+const uploadToBucket = async (file: any, address: string) => {
     // Uploads image to google cloud storage
     if (address === "") {
         throw new Error("address is empty")

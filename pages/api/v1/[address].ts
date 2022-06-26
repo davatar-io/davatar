@@ -3,6 +3,7 @@ import axios from "axios";
 import { Storage } from "@google-cloud/storage";
 
 const NFTPORT_API = process.env.NFT_PORT_API
+const GOOGLE_STORAGE_PK= process.env.GOOGLE_STORAGE_PK
 
 const uploadToBucket = async (file: Buffer, address: string) => {
     // Uploads image to google cloud storage
@@ -14,7 +15,7 @@ const uploadToBucket = async (file: Buffer, address: string) => {
         projectId: "davatar", 
         credentials: { 
             "client_email": process.env.GOOGLE_STORAGE_CLIENT_EMAIL,
-            "private_key": process.env.GOOGLE_STORAGE_PK
+            "private_key": GOOGLE_STORAGE_PK
         }
     })
 
@@ -32,18 +33,31 @@ export default async function handler(
   res: NextApiResponse
   ) {
     const {address} = req.query
-
     console.log(address)
+
+    //TODO: Resolve ENS & Address
     
     let url = await getDefault(address)
     
     //1. TODO: Check if image exists & apply filters
+    let imageMissing = true
+    const imgixUrl = `https://davatar.imgix.net/${address}/profile.png`
+    const imgix = await fetch(imgixUrl).then(res => res.status === 200 ? true : false)
+    
+    console.log("Exists", imgix)
 
+    if (imgix) { 
+        imageMissing = false
+        url = imgixUrl
+    }
 
-    //2. Fallback to ENS
-    if (address.includes('.eth')) { 
-        console.log("eth!!")
-        const ensExists = await axios.get(`https://metadata.ens.domains/mainnet/avatar/${address}/meta`)
+    // Fallback if image not saved
+    if (imageMissing) { 
+
+        //2. Fallback to ENS
+        if (address.includes('.eth') && imageMissing === true) { 
+            console.log("eth!!")
+            const ensExists = await axios.get(`https://metadata.ens.domains/mainnet/avatar/${address}/meta`)
             .catch(e => console.log("e", e))
             
             if (ensExists) {
@@ -57,26 +71,29 @@ export default async function handler(
         const resp = await axios.get(nftport, {
             headers: {'Authorization': `${NFTPORT_API}`}
         }).then( res => res.data ).catch(e => console.log("e", e))
-        
-        if (resp) {
+            
+        if (resp && resp.nfts?.length > 0) {
             // resp[0]
             // confirm file url exists
-            console.log(resp.nfts[0].cached_file_url)
-        url = resp.nfts[0].cached_file_url
-        console.log(url)
-    }      
-    
-    
-    //3. TODO: Upload to storage
-    
+            console.log(resp.nfts[0]?.cached_file_url)
+            url = resp.nfts[0].cached_file_url
+            console.log(url)
+        }      
+            
+    }
+        
     // Return image
     const response = await axios.get(url, {
         responseType: "arraybuffer",
     });
     const buffer = Buffer.from(response.data, "base64");
 
-    const upload = await uploadToBucket(buffer, address)
-    console.log(upload)
+     //3. TODO: Upload to storage
+     if (imageMissing === true) {
+        const upload = await uploadToBucket(buffer, address)
+        console.log(upload)
+        console.log("Uploading image")
+    }
     
     res.writeHead(200, {
         "Content-Type": "image/png",
@@ -85,9 +102,15 @@ export default async function handler(
     res.end(buffer, "base64");
 }
 
-// const resolveEnsAndAddress = async (input: string) => { 
-// }
+const resolveEnsAndAddress = async (input: string) => { 
+    let ens;
+    let address;
 
+    if (input.includes('.eth')) {
+        ens = input
+
+    }
+}
 
 const getEnsImage = async (ens: string) => {
     
@@ -100,4 +123,6 @@ const getEnsImage = async (ens: string) => {
     } 
 }
 
-const getDefault = async (address: string) => `https://avatars.dicebear.com/api/bottts/${address}.png`
+// const getDefault = async (address: string) => `https://avatars.dicebear.com/api/bottts/${address}.png`
+// 
+const getDefault = async (address: string) => `https://preview.redd.it/0vye90fmlp1z.png?auto=webp&s=fe5af15f2c4b0965a6ce11224a07459f6f241ddf`

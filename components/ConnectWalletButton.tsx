@@ -12,7 +12,7 @@ const ConnectWalletButton = () => {
         <Button tabIndex={0} label={wallet.ens ? wallet.ens : wallet.address} />
         <ul
           tabIndex={0}
-          className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
+          className="dropdown-content menu p-2 shadow border border-gray-300 bg-base-100 rounded-box w-52"
         >
           <li
             onClick={() => {

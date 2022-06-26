@@ -10,11 +10,13 @@ import { useWallet } from 'context/WalletContext';
 import { useRouter } from 'next/router';
 import LoadingIndicator from 'components/LoadingIndicator';
 import ENSManager from 'managers/ENSManager';
+import { NFTData } from 'types/NFTPort';
 
 const AccountEditPage: NextPage = () => {
   const { wallet, walletLoading } = useWallet();
   const router = useRouter();
 
+  const [selectedNFT, setSelectedNFT] = useState<NFTData>();
   const [image, setImage] = useState<any>();
   const [imageType, setImageType] = useState<'nft' | 'upload'>('nft');
 
@@ -39,7 +41,25 @@ const AccountEditPage: NextPage = () => {
       alert(`You don't have an ENS!`);
       return;
     }
-    const transaction = ENSManager.setAvatar(wallet.ens, 'url');
+    // const transaction = ENSManager.setAvatar(wallet.ens, 'url');
+    uploadImage();
+  };
+
+  const uploadImage = () => {
+    // const fileBuffer = Buffer.from(image, 'base64');
+    // console.log(fileBuffer);
+    let data = new FormData();
+    data.append('address', wallet?.address!);
+    data.append('file', image);
+    axios
+      .post('/api/upload', data)
+      .then((res) => {
+        console.log('success: ', res);
+        setUploadedImage(true);
+      })
+      .catch((err) => {
+        console.log('error: ', err);
+      });
   };
 
   const renderImageTypeButtonGroup = () => {
@@ -81,9 +101,9 @@ const AccountEditPage: NextPage = () => {
             address={
               wallet?.address || '0x78A42a84bFE3E173C3A9246b3F5F1c5Aa8BBaE72'
             }
-            onSelect={(selectedNFT) => {
+            onSelect={(nft) => {
               console.log('this nft was selected', selectedNFT);
-              setImage(selectedNFT);
+              setSelectedNFT(nft);
             }}
           />
         ) : (
@@ -91,6 +111,7 @@ const AccountEditPage: NextPage = () => {
             onImageSelect={(img) => {
               console.log(img);
               alert('image was set');
+              setImage(img);
             }}
           />
         )}

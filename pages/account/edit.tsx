@@ -1,18 +1,18 @@
-import { useEffect, useState } from 'react';
-import type { NextPage } from 'next';
-import axios from 'axios';
-import Image from 'next/image';
+import { useEffect, useState } from "react";
+import type { NextPage } from "next";
+import axios from "axios";
+import Image from "next/image";
 
-import ImageDropzone from 'components/ImageDropzone';
-import NFTGallery from 'components/NFTGallery';
+import ImageDropzone from "components/ImageDropzone";
+import NFTGallery from "components/NFTGallery";
 
-import { useWallet } from 'context/WalletContext';
-import { useRouter } from 'next/router';
+import { useWallet } from "context/WalletContext";
+import { useRouter } from "next/router";
 
 const AccountEditPage: NextPage = () => {
   const { wallet } = useWallet();
   const [image, setImage] = useState<any>();
-  const [imageType, setImageType] = useState<'nft' | 'upload'>('nft');
+  const [imageType, setImageType] = useState<"nft" | "upload">("nft");
   const router = useRouter();
 
   const renderImageTypeButtonGroup = () => {
@@ -21,22 +21,22 @@ const AccountEditPage: NextPage = () => {
         <div className="flex mx-auto bg-gray-200 rounded-2xl overflow-hidden border-gray-200 p-1">
           <div
             className={`bg-gray-200 px-6 py-3 cursor-pointer ${
-              imageType === 'nft' &&
-              'bg-gradient-to-br from-gray-700 to-gray-900 text-white font-semibold rounded-xl'
+              imageType === "nft" &&
+              "bg-gradient-to-br from-gray-700 to-gray-900 text-white font-semibold rounded-xl"
             }`}
             onClick={() => {
-              setImageType('nft');
+              setImageType("nft");
             }}
           >
             NFTs
           </div>
           <div
             className={`bg-gray-200 px-6 py-3 cursor-pointer ${
-              imageType === 'upload' &&
-              'bg-gradient-to-br from-gray-700 to-gray-900 text-white font-semibold rounded-xl'
+              imageType === "upload" &&
+              "bg-gradient-to-br from-gray-700 to-gray-900 text-white font-semibold rounded-xl"
             }`}
             onClick={() => {
-              setImageType('upload');
+              setImageType("upload");
             }}
           >
             Upload
@@ -49,13 +49,13 @@ const AccountEditPage: NextPage = () => {
   const renderImageSelect = () => {
     return (
       <div className="flex justify-center items-center">
-        {imageType === 'nft' ? (
+        {imageType === "nft" ? (
           <NFTGallery
             address={
-              wallet?.address || '0x78A42a84bFE3E173C3A9246b3F5F1c5Aa8BBaE72'
+              wallet?.address || "0x78A42a84bFE3E173C3A9246b3F5F1c5Aa8BBaE72"
             }
             onSelect={(selectedNFT) => {
-              console.log('this nft was selected', selectedNFT);
+              console.log("this nft was selected", selectedNFT);
               setImage(selectedNFT);
             }}
           />
@@ -63,7 +63,7 @@ const AccountEditPage: NextPage = () => {
           <ImageDropzone
             onImageSelect={(img) => {
               console.log(img);
-              alert('image was set');
+              alert("image was set");
             }}
           />
         )}
@@ -75,12 +75,14 @@ const AccountEditPage: NextPage = () => {
     return (
       <button
         className={`px-6 py-3 bg-gray-900 font-semibold text-white rounded-xl hover:bg-gray-800 active:scale-105 transition-all ease-in-out ${
-          imageType === 'nft' && ''
+          imageType === "nft" && ""
         }`}
         onClick={() => {
-          console.log('Submit this image', image);
+          console.log("Submit this image", image);
           // how to pass data via router?
-          router.push('/account');
+          if (image) {
+            router.push("/account");
+          }
         }}
       >
         Set as ENS
@@ -92,7 +94,7 @@ const AccountEditPage: NextPage = () => {
     <div className="flex">
       <div className="w-full flex flex-col max-w-4xl mx-auto">
         <div className="flex w-full">
-          <div className="mx-auto mb-8 text-3xl font-semibold">
+          <div className="mx-auto mt-6 mb-8 text-3xl font-semibold">
             Choose a profile picture
           </div>
         </div>

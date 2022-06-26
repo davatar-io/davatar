@@ -49,7 +49,7 @@ const Home: NextPage = () => {
       {/* <Header /> */}
       <main className="flex flex-col justify-center items-center w-full">
         <LogoColour />
-        <div className="w-1/2 mt-11 mb-5">
+        <div className="w-11/12 lg:w-1/2 mt-11 mb-5">
           <Form />
         </div>
 

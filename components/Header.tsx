@@ -32,7 +32,7 @@ const Header = () => {
   const router = useRouter();
 
   return (
-    <div className="flex h-20 px-10 justify-between items-center">
+    <div className="flex h-20 px-4 lg:px-10 justify-between items-center">
       {router.pathname !== "/" ? <Logo /> : <div></div>}
       <ConnectWalletButton />
     </div>

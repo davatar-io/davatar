@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
-import Image from "next/image";
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import Image from 'next/image';
 
-import LoadingIndicator from "./LoadingIndicator";
+import LoadingIndicator from './LoadingIndicator';
 
-import { NFTData } from "types/NFTPort";
+import { NFTData } from 'types/NFTPort';
 
 interface Props {
   address: string | undefined;
@@ -22,13 +22,13 @@ const NFTGallery = ({ address, onSelect }: Props) => {
         .get(`https://api.nftport.xyz/v0/accounts/${address}`, {
           params: {
             account_address: address,
-            chain: "ethereum",
-            include: "metadata",
-            page_size: "50",
+            chain: 'ethereum',
+            include: 'metadata',
+            page_size: '50',
           },
           headers: {
-            "Content-Type": "application/json",
-            Authorization: "51bb64f4-d1da-462a-b285-081b6db439fc",
+            'Content-Type': 'application/json',
+            Authorization: '51bb64f4-d1da-462a-b285-081b6db439fc',
           },
         })
         .then((result) => {
@@ -46,9 +46,9 @@ const NFTGallery = ({ address, onSelect }: Props) => {
         key={index}
         className={`m-3 border-4 rounded-xl overflow-hidden  ease-in-out transition-all ${
           onSelect
-            ? "cursor-pointer hover:shadow-2xl hover:scale-105 active:hover:border-indigo-600"
-            : ""
-        } ${selectedKey === index ? "border-indigo-600" : "border-white"}`}
+            ? 'cursor-pointer hover:shadow-2xl hover:scale-105 active:hover:border-indigo-600'
+            : ''
+        } ${selectedKey === index ? 'border-indigo-600' : 'border-white'}`}
         onClick={() => {
           onSelect && onSelect(nft);
           onSelect && setSelectedKey(index);
@@ -57,7 +57,7 @@ const NFTGallery = ({ address, onSelect }: Props) => {
         <div className="flex flex-col h-64">
           <div
             className={`flex justify-center align-center w-64 h-64 rounded-lg bg-gray-800 relative ${
-              selectedKey === index ? "opacity-50" : ""
+              selectedKey === index ? 'opacity-50' : ''
             }`}
           >
             {nft.cached_file_url && (

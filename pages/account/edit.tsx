@@ -36,13 +36,31 @@ const AccountEditPage: NextPage = () => {
     }
   }, [saving, savedENS, uploadedImage]);
 
-  const save = () => {
+  const save = async () => {
     if (!wallet?.ens) {
       alert(`You don't have an ENS!`);
       return;
     }
+
+    if (!selectedNFT) {
+      alert(`You didn't select an NFT yet!`);
+      return;
+    }
+
+    const imageURL = selectedNFT.cached_file_url || selectedNFT.metadata;
+    // fetch('/api/seturl', )
     // const transaction = ENSManager.setAvatar(wallet.ens, 'url');
-    uploadImage();
+    // uploadImage();
+    const result = await fetch('/api/seturl', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        address: wallet.address,
+        url: selectedNFT.cached_file_url,
+      }),
+    });
   };
 
   const uploadImage = async () => {

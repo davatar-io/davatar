@@ -45,7 +45,7 @@ export default async function handler(
     const imgixUrl = `https://davatar.imgix.net/${address}/profile.png`
     const imgix = await fetch(imgixUrl).then(res => res.status === 200 ? true : false)
     
-    console.log("Exists", imgix)
+    console.log("Image Exists", imgixUrl)
 
     if (imgix) { 
         imageMissing = false
@@ -56,30 +56,34 @@ export default async function handler(
     if (imageMissing) { 
 
         //2. Fallback to ENS
+        let fallbackFound = false
         if (address.includes('.eth') && imageMissing === true) { 
             console.log("eth!!")
             const ensExists = await axios.get(`https://metadata.ens.domains/mainnet/avatar/${address}/meta`)
             .catch(e => console.log("e", e))
             
             if (ensExists) {
+                fallbackFound = true
                 url = `https://metadata.ens.domains/mainnet/avatar/${address}`
             } 
         } 
         
         //2. Fallback to NFTs
         // add other contracts, check if image url is valid
-        const nftport = `https://api.nftport.xyz/v0/accounts/${address}?chain=ethereum&include=metadata&page_size=1&contract_address=0x60e4d786628fea6478f785a6d7e704777c86a7c6`
-        const resp = await axios.get(nftport, {
-            headers: {'Authorization': `${NFTPORT_API}`}
-        }).then( res => res.data ).catch(e => console.log("e", e))
-            
-        if (resp && resp.nfts?.length > 0) {
-            // resp[0]
-            // confirm file url exists
-            console.log(resp.nfts[0]?.cached_file_url)
-            url = resp.nfts[0].cached_file_url
-            console.log(url)
-        }      
+        if (fallbackFound === false){
+            const nftport = `https://api.nftport.xyz/v0/accounts/${address}?chain=ethereum&include=metadata&page_size=1&contract_address=0x60e4d786628fea6478f785a6d7e704777c86a7c6`
+            const resp = await axios.get(nftport, {
+                headers: {'Authorization': `${NFTPORT_API}`}
+            }).then( res => res.data ).catch(e => console.log("e", e))
+                
+            if (resp && resp.nfts?.length > 0) {
+                // resp[0]
+                // confirm file url exists
+                console.log(resp.nfts[0]?.cached_file_url)
+                url = resp.nfts[0].cached_file_url
+                console.log(url)
+            }      
+        }
             
     }
         
@@ -128,6 +132,4 @@ const getEnsImage = async (ens: string) => {
     } 
 }
 
-// const getDefault = async (address: string) => `https://avatars.dicebear.com/api/bottts/${address}.png`
-// 
-const getDefault = async (address: string) => `https://preview.redd.it/0vye90fmlp1z.png?auto=webp&s=fe5af15f2c4b0965a6ce11224a07459f6f241ddf`
+const getDefault = async (address: string) => `https://avatars.dicebear.com/api/bottts/${address}.png`

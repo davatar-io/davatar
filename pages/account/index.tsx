@@ -41,15 +41,13 @@ const AccountPage: NextPage = () => {
       <div className="flex flex-col w-full">
         <CoverImage />
         <div className="flex mx-auto -mt-20 rounded-full border-white border-8 overflow-hidden bg-gray-200">
-          <Image
+          <img
             // @ts-ignore
             src={
               wallet.avatar ||
               `${window.location.origin}/api/${wallet.ens || wallet.address}`
             }
             alt="nft"
-            layout="fixed"
-            objectFit="contain"
             height={160}
             width={160}
           />

@@ -7,7 +7,7 @@ import LoadingIndicator from "./LoadingIndicator";
 import { NFTData } from "types/NFTPort";
 
 interface Props {
-  address: string;
+  address: string | undefined;
   onSelect?: (nft: NFTData) => void;
 }
 
@@ -24,7 +24,7 @@ const NFTGallery = ({ address, onSelect }: Props) => {
             account_address: address,
             chain: "ethereum",
             include: "metadata",
-            page_size: "10",
+            page_size: "50",
           },
           headers: {
             "Content-Type": "application/json",
@@ -77,7 +77,7 @@ const NFTGallery = ({ address, onSelect }: Props) => {
 
   if (loading) {
     return (
-      <div className="flex mt-20">
+      <div className="flex mt-20 w-full justify-center">
         <LoadingIndicator />
       </div>
     );

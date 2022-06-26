@@ -5,6 +5,8 @@ import Link from "next/link";
 import ConnectWalletButton from "components/ConnectWalletButton";
 
 import logoGlyph from "../assets/LogoGlyph.png";
+import logoColourSmall from "../assets/LogoColourSmall.svg";
+
 import Button from "../components/Button";
 import { useWallet } from "context/WalletContext";
 import { useRouter } from "next/router";
@@ -13,16 +15,13 @@ const Logo = () => {
   return (
     <Link href="/">
       <a>
-        <div className="flex items-center">
-          <Image
-            src={logoGlyph}
-            alt="davatar.io logo"
-            layout="fixed"
-            width={32}
-            height={32}
-          />
-          <div className="font-semibold text-xl pl-1">avatar.io</div>
-        </div>
+        <Image
+          src={logoColourSmall}
+          alt="davatar.io logo"
+          layout="fixed"
+          width={106}
+          height={32}
+        />
       </a>
     </Link>
   );
@@ -33,7 +32,7 @@ const Header = () => {
   const router = useRouter();
 
   return (
-    <div className="flex h-20 px-10 justify-between items-center">
+    <div className="flex h-20 px-4 lg:px-10 justify-between items-center">
       {router.pathname !== "/" ? <Logo /> : <div></div>}
       <ConnectWalletButton />
     </div>

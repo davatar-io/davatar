@@ -8,12 +8,69 @@ import NFTGallery from 'components/NFTGallery';
 
 import { useWallet } from 'context/WalletContext';
 import { useRouter } from 'next/router';
+import LoadingIndicator from 'components/LoadingIndicator';
+import ENSManager from 'managers/ENSManager';
+import { NFTData } from 'types/NFTPort';
 
 const AccountEditPage: NextPage = () => {
-  const { wallet } = useWallet();
-  const [image, setImage] = useState<any>();
-  const [imageType, setImageType] = useState<'nft' | 'upload'>('nft');
+  const { wallet, walletLoading } = useWallet();
   const router = useRouter();
+
+  const [selectedNFT, setSelectedNFT] = useState<NFTData>();
+  const [image, setImage] = useState<File>();
+  const [imageType, setImageType] = useState<'nft' | 'upload'>('nft');
+
+  const [saving, setSaving] = useState<boolean>(false);
+  const [savedENS, setSavedENS] = useState<boolean>(false);
+  const [uploadedImage, setUploadedImage] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (!wallet && !walletLoading) {
+      router.push('/');
+    }
+  }, [router, wallet, walletLoading]);
+
+  useEffect(() => {
+    if (saving && savedENS && uploadedImage) {
+      router.push('/account');
+    }
+  }, [saving, savedENS, uploadedImage]);
+
+  const save = () => {
+    if (!wallet?.ens) {
+      alert(`You don't have an ENS!`);
+      return;
+    }
+    // const transaction = ENSManager.setAvatar(wallet.ens, 'url');
+    uploadImage();
+  };
+
+  const uploadImage = async () => {
+    console.log('uploadImage');
+    if (!image) return;
+    // console.log('found image', image);
+    // const fileToBlob = async (file: File) =>
+    //   new Blob([new Uint8Array(await file.arrayBuffer())], { type: file.type });
+    // const blob = await fileToBlob(image);
+    // console.log('file turned to blob');
+
+    // @ts-ignore
+    const fileBuffer = Buffer.from(image, 'base64');
+    console.log(fileBuffer);
+    let data = new FormData();
+    data.append('address', wallet?.address!);
+    // @ts-ignore
+    data.append('file', fileBuffer);
+    axios
+      .post('/api/upload', data)
+      .then((res) => {
+        console.log('success: ', res);
+        setUploadedImage(true);
+      })
+      .catch((err) => {
+        console.log('error: ', err);
+      });
+  };
 
   const renderImageTypeButtonGroup = () => {
     return (
@@ -54,16 +111,16 @@ const AccountEditPage: NextPage = () => {
             address={
               wallet?.address || '0x78A42a84bFE3E173C3A9246b3F5F1c5Aa8BBaE72'
             }
-            onSelect={(selectedNFT) => {
+            onSelect={(nft) => {
               console.log('this nft was selected', selectedNFT);
-              setImage(selectedNFT);
+              setSelectedNFT(nft);
             }}
           />
         ) : (
           <ImageDropzone
             onImageSelect={(img) => {
-              console.log(img);
-              alert('image was set');
+              console.log('img set: ', img);
+              setImage(img);
             }}
           />
         )}
@@ -78,9 +135,7 @@ const AccountEditPage: NextPage = () => {
           imageType === 'nft' && ''
         }`}
         onClick={() => {
-          console.log('Submit this image', image);
-          // how to pass data via router?
-          router.push('/account');
+          save();
         }}
       >
         Set as ENS
@@ -88,11 +143,28 @@ const AccountEditPage: NextPage = () => {
     );
   };
 
+  if (!wallet || walletLoading) {
+    return (
+      <div className="flex w-full justify-center">
+        <LoadingIndicator />
+      </div>
+    );
+  }
+
+  if (saving) {
+    return (
+      <div className="flex w-full justify-center">
+        <div className="mx-auto mt-6 mb-8 text-3xl font-semibold">Saving</div>
+        <LoadingIndicator />
+      </div>
+    );
+  }
+
   return (
     <div className="flex">
       <div className="w-full flex flex-col max-w-4xl mx-auto">
         <div className="flex w-full">
-          <div className="mx-auto mb-8 text-3xl font-semibold">
+          <div className="mx-auto mt-6 mb-8 text-3xl font-semibold">
             Choose a profile picture
           </div>
         </div>

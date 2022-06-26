@@ -3,10 +3,22 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import { useWallet } from "context/WalletContext";
 import NFTGallery from "components/NFTGallery";
+import { useEffect } from "react";
+import LoadingIndicator from "components/LoadingIndicator";
+import { shortenAddress } from "utils/shortenUrl";
 
 const AccountPage: NextPage = () => {
-  const { wallet } = useWallet();
+  const { wallet, walletLoading } = useWallet();
   const router = useRouter();
+
+  useEffect(() => {
+    if (!wallet && !walletLoading) {
+      router.push("/");
+    }
+
+    console.log("wallet: ", wallet);
+    console.log("window.location.host: ", window.location);
+  }, [router, wallet, walletLoading]);
 
   const CoverImage = () => {
     return (
@@ -16,13 +28,25 @@ const AccountPage: NextPage = () => {
     );
   };
 
+  if (!wallet || walletLoading) {
+    return (
+      <div className="flex w-full justify-center">
+        <LoadingIndicator />
+      </div>
+    );
+  }
+
   return (
     <div>
       <div className="flex flex-col w-full">
         <CoverImage />
-        <div className="flex mx-auto -mt-20 rounded-full border-white border-8 overflow-hidden">
+        <div className="flex mx-auto -mt-20 rounded-full border-white border-8 overflow-hidden bg-gray-200">
           <Image
-            src="https://storage.googleapis.com/sentinel-nft/raw-assets/f741b19deee41d289b7f6f21c5f063015bb0b4df257415fa08aabde17b58673c.png"
+            // @ts-ignore
+            src={
+              wallet.avatar ||
+              `${window.location.origin}/api/v1/${wallet.ens || wallet.address}`
+            }
             alt="nft"
             layout="fixed"
             objectFit="contain"
@@ -31,7 +55,7 @@ const AccountPage: NextPage = () => {
           />
         </div>
         <h1 className="w-full justify-center text-center font-semibold text-2xl mt-3">
-          {wallet?.ens || wallet?.address}
+          {wallet?.ens || shortenAddress(wallet?.address)}
         </h1>
       </div>
       <div className="flex w-full justify-center mt-4 mb-8">
@@ -44,11 +68,7 @@ const AccountPage: NextPage = () => {
           Edit avatar
         </button>
       </div>
-      <NFTGallery
-        address={
-          wallet?.address || "0x78A42a84bFE3E173C3A9246b3F5F1c5Aa8BBaE72"
-        }
-      />
+      <NFTGallery address={wallet?.address} />
     </div>
   );
 };

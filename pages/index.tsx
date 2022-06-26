@@ -1,15 +1,14 @@
-import { useEffect, useState } from "react";
-import type { NextPage } from "next";
-import Head from "next/head";
-import Image from "next/image";
-import styles from "../styles/Home.module.css";
+import { useEffect, useState } from 'react';
+import type { NextPage } from 'next';
+import Image from 'next/image';
+import { useRouter } from 'next/router';
 
-import { useWallet } from "context/WalletContext";
-import WalletManager from "managers/WalletManager";
+import { useWallet } from 'context/WalletContext';
+import WalletManager from 'managers/WalletManager';
 
 // import logoColour from "../assets/LogoColour.png";
-import logoColour from "../assets/LogoColour.svg";
-import Button from "components/Button";
+import logoColour from '../assets/LogoColour.svg';
+import Button from 'components/Button';
 
 const LogoColour = () => {
   return (
@@ -32,7 +31,7 @@ const Form = () => {
         https://davatar.io/
       </div>
       <input
-        className="appearance-none py-2 pl-0 text-gray-700 focus:outline-none focus:shadow-outline"
+        className="w-full appearance-none py-2 pl-0 text-gray-700 focus:outline-none focus:shadow-outline"
         type="text"
         placeholder="vitalik.eth"
       />
@@ -42,13 +41,19 @@ const Form = () => {
 
 const Home: NextPage = () => {
   const { wallet, setWallet } = useWallet();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (wallet) {
+      router.push('/account/');
+    }
+  }, [wallet, router]);
 
   return (
     <div className="flex w-full center-viewport">
-      {/* <Header /> */}
       <main className="flex flex-col justify-center items-center w-full">
         <LogoColour />
-        <div className="w-1/2 mt-11 mb-5">
+        <div className="w-11/12 lg:w-1/2 mt-11 mb-5">
           <Form />
         </div>
 
@@ -57,52 +62,29 @@ const Home: NextPage = () => {
             variant="retro"
             label="Get Davatar"
             onClick={() => {
-              console.log("clicked");
+              console.log('clicked');
             }}
           />
           <Button
             variant="retro"
             label="Update my Davatar"
             onClick={() => {
-              console.log("clicked");
+              wallet ? router.push('/account/edit') : WalletManager.connect();
             }}
           />
         </div>
 
-        {/* <div className={styles.grid}>
-          <a href="/account" className={styles.card}>
-            <h2>Account</h2>
-          </a>
-          <a href="/jpren.eth" className={styles.card}>
-            <h2>Address</h2>
-          </a>
-          <a href="/login" className={styles.card}>
-            <h2>Login</h2>
-          </a>
-        </div>
-        <h2>{wallet?.address}</h2>
+        {/*
         <button
           onClick={() => {
-            // connectWallet();
+            ENSManager.setAvatar(
+              wallet?.ens!,
+              'https://pbs.twimg.com/profile_images/1237620200821805057/n52DTaCC_400x400.jpg'
+            );
           }}
         >
-          connect
-        </button>
-        <button
-          onClick={() => {
-            // disconnectWallet();
-          }}
-        >
-          logout
-        </button>
-        <button
-          onClick={() => {
-            setWallet({ address: "asdfasfd" });
-          }}
-        >
-          set address
-        </button>
-        <h1>{wallet?.address}</h1> */}
+          set avatar
+        </button> */}
       </main>
     </div>
   );

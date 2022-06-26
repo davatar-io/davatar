@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Image from "next/image";
 
+import LoadingIndicator from "./LoadingIndicator";
+
 import { NFTData } from "types/NFTPort";
 
 interface Props {
-  address: string;
+  address: string | undefined;
   onSelect?: (nft: NFTData) => void;
 }
 
@@ -22,7 +24,7 @@ const NFTGallery = ({ address, onSelect }: Props) => {
             account_address: address,
             chain: "ethereum",
             include: "metadata",
-            page_size: "10",
+            page_size: "50",
           },
           headers: {
             "Content-Type": "application/json",
@@ -39,22 +41,25 @@ const NFTGallery = ({ address, onSelect }: Props) => {
   }, [address]);
 
   const renderNFT = (nft: NFTData, index: number) => {
-    
     return (
       <div
         key={index}
-        className={`m-3 border-4 rounded-xl overflow-hidden  ease-in-out transition-all ${onSelect ? "cursor-pointer hover:shadow-2xl hover:scale-105 active:hover:border-indigo-600" : ""} ${
-          selectedKey === index ? "border-indigo-600" : "border-white"
-        }`}
+        className={`m-3 border-4 rounded-xl overflow-hidden  ease-in-out transition-all ${
+          onSelect
+            ? "cursor-pointer hover:shadow-2xl hover:scale-105 active:hover:border-indigo-600"
+            : ""
+        } ${selectedKey === index ? "border-indigo-600" : "border-white"}`}
         onClick={() => {
           onSelect && onSelect(nft);
           onSelect && setSelectedKey(index);
         }}
       >
         <div className="flex flex-col h-64">
-          <div className={`flex justify-center align-center w-64 h-64 rounded-lg bg-gray-800 relative ${
-          selectedKey === index ? "opacity-50" : ""
-        }`}>
+          <div
+            className={`flex justify-center align-center w-64 h-64 rounded-lg bg-gray-800 relative ${
+              selectedKey === index ? "opacity-50" : ""
+            }`}
+          >
             {nft.cached_file_url && (
               <Image
                 src={nft.cached_file_url}
@@ -71,8 +76,11 @@ const NFTGallery = ({ address, onSelect }: Props) => {
   };
 
   if (loading) {
-    // TODO: return loading screen here
-    return <div>Loading your NFTs...</div>;
+    return (
+      <div className="flex mt-20 w-full justify-center">
+        <LoadingIndicator />
+      </div>
+    );
   }
 
   return (
@@ -80,7 +88,6 @@ const NFTGallery = ({ address, onSelect }: Props) => {
       <div className="flex flex-wrap w-full justify-center pb-24">
         {nfts &&
           nfts.map((nft, i) => {
-            // console.log("nft", nft);
             return renderNFT(nft, i);
           })}
       </div>

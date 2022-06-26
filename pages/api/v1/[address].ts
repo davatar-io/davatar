@@ -37,6 +37,7 @@ export default async function handler(
 
     //TODO: Resolve ENS & Address
     
+    //@ts-ignore
     let url = await getDefault(address)
     
     //1. TODO: Check if image exists & apply filters
@@ -90,6 +91,7 @@ export default async function handler(
 
      //3. TODO: Upload to storage
      if (imageMissing === true) {
+        //@ts-ignore
         const upload = await uploadToBucket(buffer, address)
         console.log(upload)
         console.log("Uploading image")
@@ -115,10 +117,13 @@ const resolveEnsAndAddress = async (input: string) => {
 const getEnsImage = async (ens: string) => {
     
     console.log("eth!!")
+    //@ts-ignore
     const ensExists = await axios.get(`https://metadata.ens.domains/mainnet/avatar/${address}/meta`)
     .catch(e => console.log("e", e))
     
     if (ensExists) {
+
+        //@ts-ignore
         return `https://metadata.ens.domains/mainnet/avatar/${address}`
     } 
 }

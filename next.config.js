@@ -7,6 +7,7 @@ const nextConfig = {
       "pbs.twimg.com",
       "localhost:3000",
       "localhost",
+      "gateway.ipfs.io"
     ],
   },
 };

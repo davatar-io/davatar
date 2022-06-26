@@ -57,24 +57,25 @@ export default async function handler(
     .eq('address', address);
 
   if (!error && data[0]) {
+    console.log('\n\n\found the data');
     url = data[0].image_url;
     imageMissing = false;
   }
 
   //1. TODO: Check if image exists & apply filters
-  if (imageMissing) {
-    const imgixUrl = `https://davatar.imgix.net/${address}/profile.png`;
-    const imgix = await fetch(imgixUrl).then((res) =>
-      res.status === 200 ? true : false
-    );
+  // if (imageMissing) {
+  //   const imgixUrl = `https://davatar.imgix.net/${address}/profile.png`;
+  //   const imgix = await fetch(imgixUrl).then((res) =>
+  //     res.status === 200 ? true : false
+  //   );
 
-    console.log('Image Exists', imgixUrl);
+  //   console.log('Image Exists', imgixUrl);
 
-    if (imgix) {
-      imageMissing = false;
-      url = imgixUrl;
-    }
-  }
+  //   if (imgix) {
+  //     imageMissing = false;
+  //     url = imgixUrl;
+  //   }
+  // }
 
   // Fallback if image not saved
   if (imageMissing) {

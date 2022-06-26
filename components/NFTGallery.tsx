@@ -33,28 +33,31 @@ const NFTGallery = ({ address, onSelect }: Props) => {
           setNfts(result.data.nfts);
         })
         .finally(() => {
-          setLoading(false);
+          // setLoading(false);
         });
     }
   }, [address]);
 
   const renderNFT = (nft: NFTData, index: number) => {
-    
     return (
       <div
         key={index}
-        className={`m-3 border-4 rounded-xl overflow-hidden  ease-in-out transition-all ${onSelect ? "cursor-pointer hover:shadow-2xl hover:scale-105 active:hover:border-indigo-600" : ""} ${
-          selectedKey === index ? "border-indigo-600" : "border-white"
-        }`}
+        className={`m-3 border-4 rounded-xl overflow-hidden  ease-in-out transition-all ${
+          onSelect
+            ? "cursor-pointer hover:shadow-2xl hover:scale-105 active:hover:border-indigo-600"
+            : ""
+        } ${selectedKey === index ? "border-indigo-600" : "border-white"}`}
         onClick={() => {
           onSelect && onSelect(nft);
           onSelect && setSelectedKey(index);
         }}
       >
         <div className="flex flex-col h-64">
-          <div className={`flex justify-center align-center w-64 h-64 rounded-lg bg-gray-800 relative ${
-          selectedKey === index ? "opacity-50" : ""
-        }`}>
+          <div
+            className={`flex justify-center align-center w-64 h-64 rounded-lg bg-gray-800 relative ${
+              selectedKey === index ? "opacity-50" : ""
+            }`}
+          >
             {nft.cached_file_url && (
               <Image
                 src={nft.cached_file_url}
@@ -72,7 +75,15 @@ const NFTGallery = ({ address, onSelect }: Props) => {
 
   if (loading) {
     // TODO: return loading screen here
-    return <div>Loading your NFTs...</div>;
+    return (
+      // <div>Loading your NFTs...</div>
+      <div className="flex justify-center items-center">
+        <div
+          className="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full"
+          role="status"
+        ></div>
+      </div>
+    );
   }
 
   return (

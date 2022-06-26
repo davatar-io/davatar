@@ -147,12 +147,12 @@ const getEnsImage = async (ens: string) => {
   console.log('eth!!');
   //@ts-ignore
   const ensExists = await axios
-    .get(`https://metadata.ens.domains/mainnet/avatar/${address}/meta`)
+    .get(`https://metadata.ens.domains/mainnet/avatar/${ens}/meta`)
     .catch((e) => console.log('e', e));
 
   if (ensExists) {
     //@ts-ignore
-    return `https://metadata.ens.domains/mainnet/avatar/${address}`;
+    return `https://metadata.ens.domains/mainnet/avatar/${ens}`;
   }
 };
 

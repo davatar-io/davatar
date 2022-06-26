@@ -1,15 +1,16 @@
-import { useEffect, useState } from "react";
-import type { NextPage } from "next";
-import Head from "next/head";
-import Image from "next/image";
-import styles from "../styles/Home.module.css";
+import { useEffect, useState } from 'react';
+import type { NextPage } from 'next';
+import Head from 'next/head';
+import Image from 'next/image';
+import { useRouter } from 'next/router';
+import styles from '../styles/Home.module.css';
 
-import { useWallet } from "context/WalletContext";
-import WalletManager from "managers/WalletManager";
+import { useWallet } from 'context/WalletContext';
+import WalletManager from 'managers/WalletManager';
 
 // import logoColour from "../assets/LogoColour.png";
-import logoColour from "../assets/LogoColour.svg";
-import Button from "components/Button";
+import logoColour from '../assets/LogoColour.svg';
+import Button from 'components/Button';
 
 const LogoColour = () => {
   return (
@@ -58,14 +59,14 @@ const Home: NextPage = () => {
             variant="retro"
             label="Get Davatar"
             onClick={() => {
-              console.log("clicked");
+              console.log('clicked');
             }}
           />
           <Button
             variant="retro"
             label="Update my Davatar"
             onClick={() => {
-              wallet ? router.push("/account/edit") : WalletManager.connect();
+              wallet ? router.push('/account/edit') : WalletManager.connect();
             }}
           />
         </div>

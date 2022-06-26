@@ -1,16 +1,16 @@
-import { useEffect, useState } from 'react';
-import type { NextPage } from 'next';
-import Head from 'next/head';
-import Image from 'next/image';
-import { useRouter } from 'next/router';
-import styles from '../styles/Home.module.css';
+import { useEffect, useState } from "react";
+import type { NextPage } from "next";
+import Head from "next/head";
+import Image from "next/image";
+import { useRouter } from "next/router";
+import styles from "../styles/Home.module.css";
 
-import { useWallet } from 'context/WalletContext';
-import WalletManager from 'managers/WalletManager';
+import { useWallet } from "context/WalletContext";
+import WalletManager from "managers/WalletManager";
 
 // import logoColour from "../assets/LogoColour.png";
-import logoColour from '../assets/LogoColour.svg';
-import Button from 'components/Button';
+import logoColour from "../assets/LogoColour.svg";
+import Button from "components/Button";
 
 const LogoColour = () => {
   return (
@@ -45,6 +45,12 @@ const Home: NextPage = () => {
   const { wallet, setWallet } = useWallet();
   const router = useRouter();
 
+  useEffect(() => {
+    if (wallet) {
+      router.push("/account/");
+    }
+  }, [wallet, router]);
+
   return (
     <div className="flex w-full center-viewport">
       {/* <Header /> */}
@@ -59,50 +65,17 @@ const Home: NextPage = () => {
             variant="retro"
             label="Get Davatar"
             onClick={() => {
-              console.log('clicked');
+              console.log("clicked");
             }}
           />
           <Button
             variant="retro"
             label="Update my Davatar"
             onClick={() => {
-              wallet ? router.push('/account/edit') : WalletManager.connect();
+              wallet ? router.push("/account/edit") : WalletManager.connect();
             }}
           />
         </div>
-
-        {/* <div className={styles.grid}>
-          <a href="/account" className={styles.card}>
-            <h2>Account</h2>
-          </a>
-          <a href="/jpren.eth" className={styles.card}>
-            <h2>Address</h2>
-          </a>
-          <a href="/login" className={styles.card}>
-            <h2>Login</h2>
-          </a>
-        </div>
-        <h2>{wallet?.address}</h2>
-        <button
-          onClick={() => {
-            ENSManager.initialize(WalletManager.provider!);
-
-            // WalletManager.setAvatar(wallet?.ens!);
-          }}
-        >
-          intialize ens
-        </button>
-        <button
-          onClick={() => {
-            ENSManager.setAvatar(
-              wallet?.ens!,
-              'https://pbs.twimg.com/profile_images/1237620200821805057/n52DTaCC_400x400.jpg'
-            );
-          }}
-        >
-          set avatar
-        </button>
-        <h1>{wallet?.address}</h1> */}
       </main>
     </div>
   );
